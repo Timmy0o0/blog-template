@@ -1,0 +1,4 @@
+site:
+  theme:
+    light: "winter"
+    dark: "dracula"

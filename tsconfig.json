@@ -7,8 +7,11 @@
     "paths": {
       "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
+      "@interfaces/*": ["src/interfaces/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@styles/*": ["src/styles/*"]
+      "@styles/*": ["src/styles/*"],
+      "@scripts/*": ["src/scripts/*"],
+      "@config": ["src/config.ts"]
     },
     "jsx": "react-jsx",
     "jsxImportSource": "react"

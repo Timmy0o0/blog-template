@@ -1,0 +1,94 @@
+---
+import logo from "@assets/astro.svg";
+import { Icon } from "astro-icon/components";
+import ThemeToggleButton from "@components/widgets/ThemeToggleButton.astro";
+
+const navLinks = [
+  { text: "Home", href: "/" },
+  {
+    text: "Blog",
+    href: "#",
+    subLinks: [
+      { text: "Blog List", href: "/blog" },
+      { text: "Article", href: "/blog/article-example" },
+    ],
+  },
+  { text: "About", href: "/about" },
+];
+---
+
+<header
+  id="site-header"
+  class="bg-base-100 sticky top-0 z-50 hidden backdrop-blur lg:block"
+>
+  <!-- Main Navigation -->
+  <nav class="navbar mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+    <div class="navbar-start">
+      <a href="/">
+        <img src={logo.src} alt="logo" />
+      </a>
+    </div>
+    <div class="navbar-center hidden lg:flex">
+      <ul class="menu menu-horizontal gap-2 px-2 text-lg">
+        {
+          navLinks.map((link) => (
+            <li class={link.subLinks ? "dropdown" : ""}>
+              {link.subLinks ? (
+                <>
+                  <div
+                    tabindex="0"
+                    role="button"
+                    class="group hover:bg-base-200 flex items-center px-4 py-2"
+                  >
+                    {link.text}
+                    <Icon
+                      name="lucide:chevron-down"
+                      class="h-5 w-5 opacity-70 transition-transform duration-200 group-focus:rotate-180"
+                    />
+                  </div>
+                  <ul
+                    tabindex="0"
+                    role="menu"
+                    class="dropdown-content menu bg-base-100 rounded-box left-1/2 z-[51] mt-1 min-w-[14rem] -translate-x-1/2 p-3 text-lg shadow-lg transition-opacity duration-200"
+                  >
+                    {link.subLinks.map((subLink) => (
+                      <li>
+                        <a href={subLink.href} class="hover:bg-base-200">
+                          {subLink.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ) : (
+                <a href={link.href} class="hover:bg-base-200 px-4 py-2">
+                  {link.text}
+                </a>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="navbar-end gap-2">
+      <!-- Theme Toggle Button -->
+      <ThemeToggleButton />
+
+      <!-- RSS Feed Link -->
+      <a
+        href="/rss.xml"
+        class="btn btn-ghost h-12 w-12 p-2"
+        aria-label="RSS Feed"
+        title="RSS Feed"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Icon name="lucide:rss" class="h-6 w-6" />
+      </a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  import "@scripts/header-shadow.js";
+</script>
