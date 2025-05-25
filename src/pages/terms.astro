@@ -1,0 +1,185 @@
+---
+import Layout from "@layouts/Layout.astro";
+
+const lastUpdated = "May 25, 2025";
+const email = "timmy@astro.build";
+---
+
+<Layout title="Terms of Service">
+  <main class="container mx-auto max-w-4xl px-4 py-8">
+    <div class="prose lg:prose-xl max-w-none">
+      <h1 class="mb-6 text-3xl font-bold">Terms of Service</h1>
+      <p class="mb-8 text-sm text-gray-500">Last updated: {lastUpdated}</p>
+
+      <div class="space-y-6">
+        <section>
+          <h2 class="text-2xl font-semibold">Introduction</h2>
+          <p>
+            Welcome to our blog. By accessing or using our blog, you agree to be
+            bound by these Terms of Service. If you do not agree to all of these
+            Terms, you should not access or use our blog.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold">Changes to Terms</h2>
+          <p>
+            We reserve the right to modify these Terms at any time. We will
+            provide notice of any material changes by posting the new Terms on
+            this page and updating the "Last updated" date. Your continued use
+            of the blog after any such changes constitutes your acceptance of
+            the new Terms.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold">Use of the Blog</h2>
+          <p>
+            You agree to use the blog only for lawful purposes and in a way that
+            does not infringe the rights of, restrict, or inhibit anyone else's
+            use and enjoyment of the blog. Prohibited behavior includes:
+          </p>
+          <ul class="list-disc space-y-2 pl-6">
+            <li>
+              Conducting any systematic or automated data collection activities
+              without our prior consent
+            </li>
+            <li>
+              Using the blog in any way that causes, or may cause, damage to the
+              blog or impairment of the availability or accessibility
+            </li>
+            <li>
+              Using the blog in any way that is unlawful, illegal, fraudulent,
+              or harmful
+            </li>
+            <li>
+              Using the blog for any purpose related to marketing without our
+              prior written consent
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold">Intellectual Property</h2>
+          <p>
+            The content on our blog, including but not limited to text,
+            graphics, logos, images, audio clips, digital downloads, and data
+            compilations, is our property or the property of our content
+            providers and is protected by international copyright laws.
+          </p>
+          <p>
+            You may view, download, and print content from the blog for your own
+            personal, non-commercial use, provided that you do not modify the
+            content and that you retain all copyright and other proprietary
+            notices contained in the materials.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold">User-Generated Content</h2>
+          <p>
+            If you post, upload, or otherwise make available any content on our
+            blog ("User Content"), you grant us a non-exclusive, royalty-free,
+            perpetual, irrevocable, and fully sublicensable right to use,
+            reproduce, modify, adapt, publish, translate, create derivative
+            works from, distribute, and display such User Content throughout the
+            world in any media.
+          </p>
+          <p>You represent and warrant that:</p>
+          <ul class="list-disc space-y-2 pl-6">
+            <li>You own or control all rights to the User Content you post</li>
+            <li>The User Content is accurate and not misleading</li>
+            <li>
+              The User Content does not violate these Terms and will not cause
+              injury to any person or entity
+            </li>
+          </ul>
+          <p>
+            We have the right, but not the obligation, to monitor and edit or
+            remove any User Content. We take no responsibility and assume no
+            liability for any User Content posted by you or any third party.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold">Third-Party Links</h2>
+          <p>
+            Our blog may contain links to third-party websites or services that
+            are not owned or controlled by us. We have no control over, and
+            assume no responsibility for, the content, privacy policies, or
+            practices of any third-party websites or services. You further
+            acknowledge and agree that we shall not be responsible or liable,
+            directly or indirectly, for any damage or loss caused or alleged to
+            be caused by or in connection with the use of or reliance on any
+            such content, goods, or services available on or through any such
+            websites or services.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold">Limitation of Liability</h2>
+          <p>
+            To the fullest extent permitted by applicable law, we exclude all
+            representations, warranties, and conditions relating to our blog and
+            the use of this blog. Nothing in these Terms will:
+          </p>
+          <ul class="list-disc space-y-2 pl-6">
+            <li>
+              Limit or exclude our or your liability for death or personal
+              injury
+            </li>
+            <li>
+              Limit or exclude our or your liability for fraud or fraudulent
+              misrepresentation
+            </li>
+            <li>
+              Limit any of our or your liabilities in any way that is not
+              permitted under applicable law
+            </li>
+            <li>
+              Exclude any of our or your liabilities that may not be excluded
+              under applicable law
+            </li>
+          </ul>
+          <p>
+            The limitations and prohibitions of liability set in these Terms are
+            subject to the applicable law. If a court determines that any
+            provision of these Terms is invalid or unenforceable, the remaining
+            provisions will continue in effect.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold">Indemnification</h2>
+          <p>
+            You agree to indemnify, defend, and hold harmless us, our
+            affiliates, officers, directors, employees, consultants, agents, and
+            representatives from any and all claims, liabilities, damages,
+            losses, costs, expenses, fees (including reasonable attorneys' fees)
+            that such parties may incur as a result of or arising from your
+            violation of these Terms.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold">Governing Law</h2>
+          <p>
+            These Terms shall be governed and construed in accordance with the
+            laws of [Your Jurisdiction], without regard to its conflict of law
+            provisions.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold">Contact Us</h2>
+          <p>
+            If you have any questions about these Terms, please contact us at:
+          </p>
+          <div class="mt-2">
+            <p>Email: {email}</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</Layout>

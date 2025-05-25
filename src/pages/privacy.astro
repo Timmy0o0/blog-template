@@ -1,0 +1,164 @@
+---
+import Layout from "@layouts/Layout.astro";
+
+const lastUpdated = "May 25, 2025";
+const email = "timmy@astro.build";
+---
+
+<Layout title="Privacy Policy">
+  <main class="container mx-auto max-w-4xl px-4 py-8">
+    <div class="prose lg:prose-xl max-w-none">
+      <h1 class="mb-6 text-3xl font-bold">Privacy Policy</h1>
+      <p class="mb-8 text-sm text-gray-500">Last updated: {lastUpdated}</p>
+
+      <div class="space-y-6">
+        <section>
+          <h2 class="text-2xl font-semibold">Introduction</h2>
+          <p>
+            This Privacy Policy describes how we collect, use, and disclose your
+            personal information when you visit our blog. Please read this
+            Privacy Policy carefully. By accessing or using our blog, you agree
+            to this Privacy Policy.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold">Information We Collect</h2>
+          <p>We may collect the following types of information:</p>
+          <ul class="list-disc space-y-2 pl-6">
+            <li>
+              <strong>Personal Information:</strong> Information that you provide
+              directly to us, such as your name, email address, and any other information
+              you choose to provide when you contact us, subscribe to our newsletter,
+              or leave comments.
+            </li>
+            <li>
+              <strong>Usage Data:</strong> Information about how you interact with
+              our blog, including IP address, browser type, operating system, referring
+              URLs, pages visited, and time spent on the blog.
+            </li>
+            <li>
+              <strong>Cookies and Similar Technologies:</strong> We use cookies and
+              similar tracking technologies to collect information about your browsing
+              activities and to remember your preferences.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold">How We Use Your Information</h2>
+          <p>
+            We may use the information we collect for the following purposes:
+          </p>
+          <ul class="list-disc space-y-2 pl-6">
+            <li>To provide, maintain, and improve our blog</li>
+            <li>To respond to your comments, questions, and requests</li>
+            <li>
+              To send you technical notices, updates, and administrative
+              messages
+            </li>
+            <li>To send you newsletters if you have subscribed</li>
+            <li>
+              To monitor and analyze trends, usage, and activities in connection
+              with our blog
+            </li>
+            <li>
+              To protect against, identify, and prevent fraud and other illegal
+              activity
+            </li>
+            <li>To comply with legal obligations</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold">Information Sharing</h2>
+          <p>We may share your information in the following circumstances:</p>
+          <ul class="list-disc space-y-2 pl-6">
+            <li>
+              <strong>With Service Providers:</strong> We may share your information
+              with third-party service providers who perform services on our behalf,
+              such as hosting, analytics, and email delivery.
+            </li>
+            <li>
+              <strong>For Legal Reasons:</strong> We may share information if we
+              believe it is necessary to comply with applicable laws, regulations,
+              legal processes, or governmental requests.
+            </li>
+            <li>
+              <strong>With Your Consent:</strong> We may share information with your
+              consent or at your direction.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold">Your Rights and Choices</h2>
+          <p>
+            Depending on your location, you may have certain rights regarding
+            your personal information:
+          </p>
+          <ul class="list-disc space-y-2 pl-6">
+            <li>
+              Accessing, correcting, or deleting your personal information
+            </li>
+            <li>
+              Objecting to or restricting our processing of your personal
+              information
+            </li>
+            <li>Requesting portability of your personal information</li>
+            <li>Opting out of marketing communications</li>
+            <li>
+              Withdrawing consent at any time for processing based on consent
+            </li>
+          </ul>
+          <p>
+            To exercise these rights, please contact us using the information
+            provided in the "Contact Us" section.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold">Data Security</h2>
+          <p>
+            We implement appropriate technical and organizational measures to
+            protect the security of your personal information. However, please
+            note that no method of transmission over the Internet or method of
+            electronic storage is 100% secure.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold">Children's Privacy</h2>
+          <p>
+            Our blog is not intended for children under the age of 13. We do not
+            knowingly collect personal information from children under 13. If
+            you are a parent or guardian and believe that your child has
+            provided us with personal information, please contact us.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold">Changes to This Privacy Policy</h2>
+          <p>
+            We may update this Privacy Policy from time to time to reflect
+            changes in our practices or for other operational, legal, or
+            regulatory reasons. We will notify you of any material changes by
+            posting the new Privacy Policy on this page and updating the "Last
+            updated" date.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold">Contact Us</h2>
+          <p>
+            If you have any questions or concerns about this Privacy Policy or
+            our privacy practices, please contact us at:
+          </p>
+          <div class="mt-2">
+            <p>Email: {email}</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</Layout>

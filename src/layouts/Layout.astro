@@ -22,19 +22,12 @@ import { ClientRouter } from "astro:transitions";
   <body>
     <Header />
     <MobileHeader />
-    <slot />
+    <main class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+      <slot />
+    </main>
     <Footer />
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>
 
 <!-- Theme Toggle Script -->
 <script is:inline define:vars={{ SITE_THEME }}>
