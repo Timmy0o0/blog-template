@@ -1,0 +1,101 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Link {
+  text: string;
+  href: string;
+}
+
+interface FooterColumn {
+  title: string;
+  links: Link[];
+}
+
+const siteName = "MyBlog";
+const currentYear = new Date().getFullYear();
+
+const footerColumns: FooterColumn[] = [
+  {
+    title: "Content",
+    links: [
+      { text: "Blog", href: "/blog" },
+      { text: "RSS Feed", href: "/rss.xml" },
+    ],
+  },
+  {
+    title: "About",
+    links: [{ text: "About", href: "/about" }],
+  },
+];
+
+const socialLinks = [
+  { name: "twitter", href: "https://twitter.com/", icon: "lucide:twitter" },
+  { name: "github", href: "https://github.com/", icon: "lucide:github" },
+  { name: "mail", href: "mailto:", icon: "lucide:mail" },
+];
+---
+
+<footer
+  class="bg-base-100 border-base-300 border-t py-12 dark:border-gray-800 dark:bg-gray-900"
+>
+  <div class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+    <div class="flex flex-col lg:flex-row lg:justify-between lg:space-x-8">
+      <!-- Left side: Logo, copyright, terms (originally at bottom) -->
+      <div class="order-2 mb-10 lg:order-1 lg:mb-0 lg:max-w-xs">
+        <div
+          class="flex items-center justify-center space-x-2 lg:justify-start"
+        >
+          <a href="/" class="text-lg font-bold">{siteName}</a>
+        </div>
+        <div class="text-base-content/70 mt-3 text-center text-sm lg:text-left">
+          <p>© {currentYear} {siteName}. All rights reserved.</p>
+          <div class="mt-3">
+            <a href="/terms" class="hover:text-primary mr-4">Terms</a>
+            <a href="/privacy" class="hover:text-primary">Privacy Policy</a>
+          </div>
+        </div>
+
+        <div class="mt-6 flex justify-center space-x-5 lg:justify-start">
+          {
+            socialLinks.map((link) => (
+              <a
+                href={link.href}
+                class="bg-base-300 hover:bg-primary flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-200 hover:text-white dark:bg-gray-800"
+                aria-label={`Follow on ${link.name}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Icon name={link.icon} class="h-5 w-5" />
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Right side: Footer columns (originally at top) -->
+      <div
+        class="order-1 mb-8 grid grid-cols-1 gap-x-12 gap-y-10 sm:grid-cols-2 sm:gap-x-16 lg:order-2 lg:mb-0 lg:gap-x-32"
+      >
+        {
+          footerColumns.map((column) => (
+            <div class="text-center sm:text-left">
+              <h3 class="mb-4 text-lg font-medium">{column.title}</h3>
+              <ul class="space-y-3">
+                {column.links.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      class="text-base-content/70 hover:text-primary transition-colors duration-200"
+                    >
+                      {link.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</footer>
