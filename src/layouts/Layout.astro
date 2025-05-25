@@ -1,6 +1,8 @@
 ---
 import "@styles/global.css";
 
+import Header from "@components/Header.astro";
+import MobileHeader from "@components/MobileHeader.astro";
 import { SITE_THEME } from "@config";
 import { ClientRouter } from "astro:transitions";
 ---
@@ -17,6 +19,8 @@ import { ClientRouter } from "astro:transitions";
     <ClientRouter />
   </head>
   <body>
+    <Header />
+    <MobileHeader />
     <slot />
   </body>
 </html>
@@ -29,3 +33,80 @@ import { ClientRouter } from "astro:transitions";
     height: 100%;
   }
 </style>
+
+<!-- Theme Toggle Script -->
+<script is:inline define:vars={{ SITE_THEME }}>
+  // Function to update icons
+  const updateThemeIcon = (toggleButton, isDark) => {
+    if (!toggleButton) return;
+
+    const sunIcon = toggleButton.querySelector(".sun-icon");
+    const moonIcon = toggleButton.querySelector(".moon-icon");
+
+    if (sunIcon && moonIcon) {
+      if (isDark) {
+        sunIcon.classList.add("hidden");
+        moonIcon.classList.remove("hidden");
+      } else {
+        sunIcon.classList.remove("hidden");
+        moonIcon.classList.add("hidden");
+      }
+    }
+  };
+
+  // Function to animate theme icon
+  const animateThemeIcons = () => {
+    const iconWrappers = document.querySelectorAll("#theme-icon-wrapper");
+    iconWrappers.forEach((wrapper) => {
+      wrapper.classList.add("animate-spin-once");
+      setTimeout(() => {
+        wrapper.classList.remove("animate-spin-once");
+      }, 300);
+    });
+  };
+
+  // Function to toggle theme
+  const toggleTheme = () => {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme =
+      currentTheme === SITE_THEME.light ? SITE_THEME.dark : SITE_THEME.light;
+
+    // Set new theme on document
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+
+    // Animate all toggle icon
+    animateThemeIcons();
+
+    // Update all toggle icon
+    const themeToggles = document.querySelectorAll("#theme-toggle");
+    themeToggles.forEach((toggle) => {
+      updateThemeIcon(toggle, newTheme === SITE_THEME.dark);
+    });
+  };
+
+  // Function to initialize theme
+  const initTheme = () => {
+    const savedTheme = localStorage.getItem("theme");
+    const initialTheme = savedTheme || SITE_THEME.light;
+
+    // Set theme on document
+    document.documentElement.setAttribute("data-theme", initialTheme);
+
+    // Find all theme toggle buttons (both mobile and desktop)
+    const themeToggles = document.querySelectorAll("#theme-toggle");
+    themeToggles.forEach((themeToggle) => {
+      // Initialize icons for each toggle button
+      updateThemeIcon(themeToggle, initialTheme === SITE_THEME.dark);
+
+      // Add click event listener to each toggle button
+      themeToggle.addEventListener("click", toggleTheme);
+    });
+  };
+
+  // Initialize on load
+  initTheme();
+
+  // Re-initialize after Astro view transitions
+  document.addEventListener("astro:after-swap", initTheme);
+</script>

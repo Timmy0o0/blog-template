@@ -1,0 +1,270 @@
+---
+import logo from "@assets/astro.svg";
+import { Icon } from "astro-icon/components";
+import ThemeToggleButton from "@components/widgets/ThemeToggleButton.astro";
+
+const navLinks = [
+  { text: "Home", href: "/" },
+  {
+    text: "Blog",
+    href: "#",
+    subLinks: [
+      { text: "Blog List", href: "/blog" },
+      { text: "Article", href: "/blog/article-example" },
+    ],
+  },
+  { text: "About", href: "/about" },
+];
+---
+
+<header
+  id="mobile-site-header"
+  class="bg-base-100 fixed top-0 right-0 left-0 z-[60] backdrop-blur-sm transition-all duration-200 ease-in-out lg:hidden"
+>
+  <!-- Mobile Navigation Bar (Collapsed State) -->
+  <nav class="navbar mx-auto w-full px-2">
+    <div class="navbar-start">
+      <a href="/" class="flex items-center pl-2.5">
+        <img src={logo.src} alt="logo" />
+      </a>
+    </div>
+    <div class="navbar-end">
+      <button
+        id="mobile-menu-toggle"
+        class="btn btn-ghost relative h-12 w-12 p-2"
+        aria-label="Toggle mobile menu"
+        title="Toggle Menu"
+      >
+        <div class="icon-container relative h-6 w-6">
+          <Icon
+            name="lucide:menu"
+            class="menu-icon absolute inset-0 h-6 w-6 transition-all duration-200 ease-in-out"
+          />
+          <Icon
+            name="lucide:x"
+            class="close-icon absolute inset-0 h-6 w-6 scale-75 rotate-90 opacity-0 transition-all duration-200 ease-in-out"
+          />
+        </div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu (Expanded State) -->
+  <div
+    id="mobile-menu"
+    class="bg-base-100 fixed inset-0 top-[60px] z-50 hidden h-screen w-full overflow-y-auto backdrop-blur-sm transition-all duration-200 ease-in-out"
+  >
+    <div class="mx-auto flex h-full w-full flex-col px-4 py-2">
+      <!-- Navigation Links -->
+      <ul class="menu w-full text-center">
+        {
+          navLinks.map((link) => (
+            <li class="w-full">
+              {link.subLinks ? (
+                <details class="details w-full">
+                  <summary class="group flex w-full items-center py-3 pr-1 pl-3 text-lg font-medium">
+                    <span class="text-left">{link.text}</span>
+                    <Icon
+                      name="lucide:chevron-down"
+                      class="chevron-icon ml-auto h-5 w-5 transition-transform duration-200"
+                    />
+                  </summary>
+                  <ul class="pl-4">
+                    {link.subLinks.map((subLink) => (
+                      <li>
+                        <a href={subLink.href} class="py-2 text-base">
+                          {subLink.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              ) : (
+                <a href={link.href} class="py-3 text-lg font-medium">
+                  {link.text}
+                </a>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+
+      <!-- Action Buttons (Now right after navigation) -->
+      <div
+        class="border-base-300 mt-6 flex items-center justify-center gap-4 border-t pt-4"
+      >
+        <!-- Theme Toggle Button -->
+        <ThemeToggleButton />
+
+        <!-- RSS Feed Link -->
+        <a
+          href="/rss.xml"
+          class="btn btn-ghost h-12 w-12 p-2"
+          aria-label="RSS Feed"
+          title="RSS Feed"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon name="lucide:rss" class="h-6 w-6" />
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Function to toggle mobile menu
+  const toggleMobileMenu = () => {
+    const mobileMenu = document.getElementById("mobile-menu");
+    const menuIcon = document.querySelector(".menu-icon");
+    const closeIcon = document.querySelector(".close-icon");
+    const body = document.body;
+
+    if (mobileMenu && menuIcon && closeIcon) {
+      const isOpen = mobileMenu.classList.contains("hidden");
+
+      // Toggle menu visibility
+      if (isOpen) {
+        // Make visible immediately but let opacity transition handle the appearance
+        mobileMenu.classList.remove("hidden");
+        mobileMenu.style.opacity = "0";
+
+        // Force a reflow to ensure the opacity transition works
+        void mobileMenu.offsetWidth;
+
+        // Use setTimeout to create a slight delay for a visible transition
+        setTimeout(() => {
+          mobileMenu.style.opacity = "1";
+        }, 10);
+        // Animate the icons
+        (menuIcon as HTMLElement).style.opacity = "0";
+        (menuIcon as HTMLElement).style.transform =
+          "scale(0.75) rotate(-90deg)";
+        (closeIcon as HTMLElement).style.opacity = "1";
+        (closeIcon as HTMLElement).style.transform = "scale(1) rotate(0)";
+        body.classList.add("overflow-hidden"); // Prevent scrolling of body when menu is open
+      } else {
+        // Fade out first, then hide
+        mobileMenu.style.opacity = "0";
+        // Animate the icons back
+        (menuIcon as HTMLElement).style.opacity = "1";
+        (menuIcon as HTMLElement).style.transform = "scale(1) rotate(0)";
+        (closeIcon as HTMLElement).style.opacity = "0";
+        (closeIcon as HTMLElement).style.transform =
+          "scale(0.75) rotate(90deg)";
+        body.classList.remove("overflow-hidden");
+
+        // Add a small delay before hiding the menu to allow for opacity transition
+        setTimeout(() => {
+          mobileMenu.classList.add("hidden");
+        }, 200);
+      }
+    }
+  };
+
+  // Add click event listener to toggle button
+  const toggleButton = document.getElementById("mobile-menu-toggle");
+  if (toggleButton) {
+    toggleButton.addEventListener("click", toggleMobileMenu);
+  }
+
+  // Close menu when clicking on navigation links
+  document.querySelectorAll("#mobile-menu a").forEach((link) => {
+    link.addEventListener("click", () => {
+      const mobileMenu = document.getElementById("mobile-menu");
+      const menuIcon = document.querySelector(".menu-icon");
+      const closeIcon = document.querySelector(".close-icon");
+      const body = document.body;
+
+      if (mobileMenu && menuIcon && closeIcon) {
+        (mobileMenu as HTMLElement).style.opacity = "0";
+        // Animate the icons back
+        (menuIcon as HTMLElement).style.opacity = "1";
+        (menuIcon as HTMLElement).style.transform = "scale(1) rotate(0)";
+        (closeIcon as HTMLElement).style.opacity = "0";
+        (closeIcon as HTMLElement).style.transform =
+          "scale(0.75) rotate(90deg)";
+        body.classList.remove("overflow-hidden");
+
+        setTimeout(() => {
+          mobileMenu.classList.add("hidden");
+        }, 200);
+      }
+    });
+  });
+
+  // Function to handle chevron rotation on click
+  const handleChevronClick = (event: Event) => {
+    // Get the clicked chevron icon
+    const chevron = (event.currentTarget as HTMLElement).querySelector(
+      ".chevron-icon",
+    );
+    if (chevron) {
+      // Toggle the rotate-180 class
+      chevron.classList.toggle("rotate-180");
+    }
+  };
+
+  // Add click event listeners to summary elements with chevrons
+  const attachChevronListeners = () => {
+    document.querySelectorAll(".details summary").forEach((summary) => {
+      summary.addEventListener("click", handleChevronClick);
+    });
+  };
+
+  // Initialize listeners
+  attachChevronListeners();
+
+  // Re-initialize after Astro view transitions
+  document.addEventListener("astro:after-swap", () => {
+    // Re-attach event listener to toggle button
+    const toggleButton = document.getElementById("mobile-menu-toggle");
+    if (toggleButton) {
+      toggleButton.addEventListener("click", toggleMobileMenu);
+    }
+
+    // Re-attach event listeners to navigation links
+    document.querySelectorAll("#mobile-menu a").forEach((link) => {
+      link.addEventListener("click", () => {
+        const mobileMenu = document.getElementById("mobile-menu");
+        const menuIcon = document.querySelector(".menu-icon");
+        const closeIcon = document.querySelector(".close-icon");
+        const body = document.body;
+
+        if (mobileMenu && menuIcon && closeIcon) {
+          mobileMenu.style.opacity = "0";
+          menuIcon.classList.remove("hidden");
+          closeIcon.classList.add("hidden");
+          body.classList.remove("overflow-hidden");
+
+          setTimeout(() => {
+            mobileMenu.classList.add("hidden");
+          }, 200);
+        }
+      });
+    });
+
+    // Re-attach chevron event listeners
+    attachChevronListeners();
+  });
+</script>
+
+<style>
+  /* Hide the default DaisyUI arrow on details/summary */
+  details > summary::after {
+    display: none !important;
+  }
+
+  /* Prevent background highlight when summary is clicked */
+  details > summary {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    user-select: none;
+  }
+
+  details > summary:focus,
+  details > summary:active {
+    background-color: transparent;
+    outline: none;
+  }
+</style>

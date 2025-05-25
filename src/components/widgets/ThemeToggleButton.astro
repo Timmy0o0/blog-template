@@ -1,6 +1,5 @@
 ---
 import { Icon } from "astro-icon/components";
-import { SITE_THEME } from "@config";
 ---
 
 <!-- Theme Toggle Button -->
@@ -15,76 +14,6 @@ import { SITE_THEME } from "@config";
     <Icon name="lucide:moon" class="moon-icon absolute hidden h-6 w-6" />
   </div>
 </button>
-
-<script is:inline define:vars={{ SITE_THEME }}>
-  // Function to update icons based on current theme
-  const updateThemeIcons = (toggleButton, isDark) => {
-    if (!toggleButton) return;
-
-    const sunIcon = toggleButton.querySelector(".sun-icon");
-    const moonIcon = toggleButton.querySelector(".moon-icon");
-
-    if (sunIcon && moonIcon) {
-      if (isDark) {
-        sunIcon.classList.add("hidden");
-        moonIcon.classList.remove("hidden");
-      } else {
-        sunIcon.classList.remove("hidden");
-        moonIcon.classList.add("hidden");
-      }
-    }
-  };
-
-  // Function to animate theme icon
-  const animateThemeIcon = () => {
-    const iconWrapper = document.getElementById("theme-icon-wrapper");
-    if (iconWrapper) {
-      iconWrapper.classList.add("animate-spin-once");
-      setTimeout(() => {
-        iconWrapper.classList.remove("animate-spin-once");
-      }, 300);
-    }
-  };
-
-  // Function to toggle theme
-  const toggleTheme = (themeToggle) => {
-    if (!themeToggle) return;
-
-    const currentTheme = document.documentElement.getAttribute("data-theme");
-    const newTheme =
-      currentTheme === SITE_THEME.light ? SITE_THEME.dark : SITE_THEME.light;
-
-    // Animate icon
-    animateThemeIcon();
-
-    // Set new theme and update icons
-    document.documentElement.setAttribute("data-theme", newTheme);
-    localStorage.setItem("theme", newTheme);
-    updateThemeIcons(themeToggle, newTheme === SITE_THEME.dark);
-  };
-
-  // Function to initialize theme
-  const initTheme = () => {
-    const savedTheme = localStorage.getItem("theme");
-    const initialTheme = savedTheme || SITE_THEME.light;
-    const themeToggle = document.getElementById("theme-toggle");
-
-    if (!themeToggle) return;
-
-    // Initialize theme and update icons
-    document.documentElement.setAttribute("data-theme", initialTheme);
-    updateThemeIcons(themeToggle, initialTheme === SITE_THEME.dark);
-
-    // Add click event listener
-    themeToggle.addEventListener("click", () => toggleTheme(themeToggle));
-  };
-
-  // Initialize on load
-  initTheme();
-
-  // Re-initialize after Astro view transitions
-  document.addEventListener("astro:after-swap", initTheme);
-</script>
 
 <style>
   @keyframes spin-once {
