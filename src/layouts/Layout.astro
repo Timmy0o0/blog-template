@@ -30,6 +30,13 @@ import { ClientRouter } from "astro:transitions";
   </body>
 </html>
 
+<!-- Prevent scroll bar from causing layout shift -->
+<style>
+  html {
+    overflow-y: scroll;
+  }
+</style>
+
 <!-- Theme Toggle Script -->
 <script is:inline define:vars={{ SITE_THEME }}>
   // Function to update icons
