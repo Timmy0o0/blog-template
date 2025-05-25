@@ -22,7 +22,8 @@ import { ClientRouter } from "astro:transitions";
   <body>
     <Header />
     <MobileHeader />
-    <main class="mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
+    <main class="mx-auto max-w-7xl px-6 pt-16 sm:px-8 lg:px-10 lg:pt-0">
+      <!-- Added pt-16 for mobile and pt-0 for lg screens -->
       <slot />
     </main>
     <Footer />
