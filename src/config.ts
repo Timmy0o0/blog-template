@@ -1,4 +1,4 @@
-import { type Config } from "@interfaces/site";
+import { type Config } from "@interface/site";
 import fs from "fs";
 import yaml from "js-yaml";
 import path from "path";
