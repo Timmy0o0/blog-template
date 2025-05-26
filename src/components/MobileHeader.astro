@@ -62,7 +62,7 @@ const navLinks = [
             <li class="w-full">
               {link.subLinks ? (
                 <details class="details w-full">
-                  <summary class="group flex w-full items-center py-3 pr-1 pl-3 text-lg font-medium hover:bg-base-200 dark:hover:bg-gray-800">
+                  <summary class="group hover:bg-base-200 flex w-full items-center py-3 pr-1 pl-3 text-lg font-medium dark:hover:bg-gray-800">
                     <span class="text-left">{link.text}</span>
                     <Icon
                       name="lucide:chevron-down"
@@ -112,12 +112,33 @@ const navLinks = [
   </div>
 </header>
 
+<style>
+  /* Hide the default DaisyUI arrow on details/summary */
+  details > summary::after {
+    display: none !important;
+  }
+
+  /* Prevent background highlight when summary is clicked */
+  details > summary {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    user-select: none;
+  }
+
+  details > summary:focus,
+  details > summary:active {
+    background-color: transparent;
+    outline: none;
+  }
+</style>
+
+<!-- shadow -->
 <script>
   document.addEventListener("astro:page-load", () => {
     // Function to add shadow to mobile header on scroll
     const toggleMobileHeaderShadow = () => {
       const mobileHeader = document.getElementById("mobile-site-header");
-      
+
       if (mobileHeader) {
         if (window.scrollY > 0) {
           mobileHeader.classList.add("shadow-md");
@@ -126,14 +147,17 @@ const navLinks = [
         }
       }
     };
-    
+
     // Check initial state
     toggleMobileHeaderShadow();
-    
+
     // Add scroll event listener
     window.addEventListener("scroll", toggleMobileHeaderShadow);
   });
+</script>
 
+<!-- menu toggle -->
+<script>
   // Function to toggle mobile menu
   const toggleMobileMenu = () => {
     const mobileMenu = document.getElementById("mobile-menu");
@@ -269,23 +293,3 @@ const navLinks = [
     attachChevronListeners();
   });
 </script>
-
-<style>
-  /* Hide the default DaisyUI arrow on details/summary */
-  details > summary::after {
-    display: none !important;
-  }
-
-  /* Prevent background highlight when summary is clicked */
-  details > summary {
-    -webkit-tap-highlight-color: transparent;
-    outline: none;
-    user-select: none;
-  }
-
-  details > summary:focus,
-  details > summary:active {
-    background-color: transparent;
-    outline: none;
-  }
-</style>
