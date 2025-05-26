@@ -1,0 +1,46 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<section class="relative overflow-hidden py-12 md:py-20">
+  <div class="container mx-auto">
+    <div class="flex flex-col items-center gap-8 md:flex-row md:gap-12">
+      <!-- Text content -->
+      <div class="flex-1 space-y-6 text-center md:text-left">
+        <h1 class="text-4xl leading-tight font-bold md:text-5xl lg:text-6xl">
+          <span class="text-base-content">Welcome to My</span>
+          <span class="text-primary block">Personal Blog</span>
+        </h1>
+
+        <p
+          class="text-base-content/80 mx-auto max-w-2xl text-lg md:mx-0 md:text-xl"
+        >
+          Exploring technology, design, and creative ideas. Join me on this
+          journey of discovery and learning.
+        </p>
+
+        <div class="flex flex-wrap justify-center gap-4 md:justify-start">
+          <a href="/blog" class="btn btn-primary">
+            Read Articles
+            <Icon name="lucide:arrow-right" class="h-5 w-5" />
+          </a>
+          <a href="/about" class="btn btn-outline"> About Me </a>
+        </div>
+      </div>
+
+      <!-- Image/Illustration -->
+      <div class="flex flex-1 justify-center md:justify-end">
+        <div class="relative h-64 w-64 md:h-80 md:w-80 lg:h-96 lg:w-96">
+          <picture>
+            <source srcset="/hero-image.svg" type="image/svg+xml" />
+            <img
+              src="/placeholder-hero.png"
+              alt="Blog Illustration"
+              class="relative z-10 h-full w-full object-contain"
+            />
+          </picture>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
