@@ -1,0 +1,46 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { Icon } from "astro-icon/components";
+
+// Social links from Footer
+const socialLinks = [
+  { name: "Twitter", href: "https://twitter.com/", icon: "lucide:twitter" },
+  { name: "GitHub", href: "https://github.com/", icon: "lucide:github" },
+  { name: "RSS", href: "/rss.xml", icon: "lucide:rss" },
+  { name: "Email", href: "mailto:", icon: "lucide:mail" },
+];
+---
+
+<Layout>
+  <div class="mx-auto max-w-4xl px-6 py-12 sm:px-8 lg:px-10">
+    <section class="mb-12">
+      <h1 class="mb-6 text-4xl font-bold">About Me</h1>
+      <div class="prose prose-lg dark:prose-invert max-w-none">
+        <p class="lead text-base-content/80 text-xl">
+          Welcome to my personal blog! I'm passionate about sharing my thoughts,
+          experiences, and knowledge with the world.
+        </p>
+      </div>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="mb-6 text-2xl font-bold">Connect With Me</h2>
+
+      <div class="flex flex-wrap gap-4">
+        {
+          socialLinks.map((link) => (
+            <a
+              href={link.href}
+              class="bg-base-200 hover:bg-primary flex items-center gap-2 rounded-lg px-4 py-3 transition-colors duration-200 hover:text-white"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon name={link.icon} class="h-5 w-5" />
+              <span>{link.name}</span>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</Layout>
