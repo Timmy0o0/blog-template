@@ -1,0 +1,183 @@
+---
+import type { ImageMetadata } from "astro";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+
+interface Props {
+  title: string;
+  cover?: ImageMetadata;
+  pubDate: Date;
+  updatedDate?: Date;
+  categories?: string[];
+  tags?: string[];
+  slug?: string;
+}
+
+const {
+  title,
+  cover,
+  pubDate,
+  updatedDate,
+  categories = [],
+  tags = [],
+  slug,
+} = Astro.props;
+
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
+};
+
+// Generate breadcrumb items from slug
+const generateBreadcrumbs = (slug: string) => {
+  if (!slug) return [];
+
+  const segments = slug.split("/");
+  const breadcrumbs: { label: string; href: string; isLast: boolean }[] = [];
+
+  let currentPath = "";
+  segments.forEach((segment, index) => {
+    const isLast = index === segments.length - 1;
+
+    if (isLast) {
+      // For the last segment (current page), don't add a link
+      breadcrumbs.push({
+        label: title,
+        href: `/${slug}`,
+        isLast: true,
+      });
+    } else {
+      // For intermediate segments, add category links
+      currentPath += segment;
+      breadcrumbs.push({
+        label: segment.charAt(0).toUpperCase() + segment.slice(1),
+        href: `/${segment}`,
+        isLast: false,
+      });
+      currentPath += "/";
+    }
+  });
+
+  return breadcrumbs;
+};
+
+const breadcrumbs = slug ? generateBreadcrumbs(slug) : [];
+---
+
+<header class="prose mb-8 max-w-none">
+  <!-- Breadcrumb Navigation -->
+  {
+    breadcrumbs.length > 0 && (
+      <nav class="not-prose mb-6">
+        <div class="breadcrumbs text-sm">
+          <ul>
+            <li>
+              <a
+                href="/"
+                class="hover:text-primary flex items-center transition-colors"
+              >
+                <Icon name="lucide:home" class="mr-1 h-4 w-4" />
+                Home
+              </a>
+            </li>
+            {breadcrumbs.map((item) => (
+              <li>
+                {item.isLast ? (
+                  <span class="text-base-content font-medium">
+                    {item.label}
+                  </span>
+                ) : (
+                  <a
+                    href={item.href}
+                    class="hover:text-primary transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+    )
+  }
+
+  {
+    cover && (
+      <figure class="relative overflow-hidden rounded-xl">
+        <Image
+          src={cover}
+          alt={`${title} cover image`}
+          class="h-64 w-full rounded-xl object-cover transition-transform duration-500 hover:scale-105 md:h-80 lg:h-96"
+          loading="eager"
+          quality={90}
+        />
+        <div class="absolute inset-0 rounded-xl bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+        <div class="absolute bottom-0 left-0 p-6">
+          <div class="text-2xl font-bold text-white drop-shadow-lg md:text-3xl lg:text-4xl">
+            {title}
+          </div>
+        </div>
+      </figure>
+    )
+  }
+
+  <div class="mb-6 flex flex-wrap items-center justify-center gap-4">
+    <div class="text-base-content/60 flex items-center gap-2 text-sm">
+      <Icon name="lucide:calendar" class="h-4 w-4" />
+      <time datetime={pubDate.toISOString()} class="font-medium">
+        Published on {formatDate(pubDate)}
+      </time>
+    </div>
+
+    {
+      updatedDate && (
+        <div class="text-base-content/60 flex items-center gap-2 text-sm">
+          <Icon name="lucide:refresh-cw" class="h-4 w-4" />
+          <time datetime={updatedDate.toISOString()} class="font-medium">
+            Updated on {formatDate(updatedDate)}
+          </time>
+        </div>
+      )
+    }
+  </div>
+
+  {
+    (categories.length > 0 || tags.length > 0) && (
+      <div class="mb-8 flex flex-wrap justify-center gap-6">
+        {categories.length > 0 && (
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-base-content/70 text-sm font-semibold">
+              Categories:
+            </span>
+            <div class="flex flex-wrap gap-2">
+              {categories.map((category) => (
+                <div class="badge badge-primary badge-outline font-medium">
+                  {category}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {tags.length > 0 && (
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-base-content/70 text-sm font-semibold">
+              Tags:
+            </span>
+            <div class="flex flex-wrap gap-2">
+              {tags.map((tag) => (
+                <div class="badge badge-secondary badge-sm">#{tag}</div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  <div class="divider"></div>
+</header>

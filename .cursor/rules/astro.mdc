@@ -1,0 +1,29 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Astro Framework Development Rules
+
+## Core Tech Stack
+1. **Framework**: Astro 5.8+ (Static Site Generator)
+2. **Package Manager**: pnpm
+3. **UI Framework**: Tailwind CSS 4.1+ + DaisyUI 5.0+
+4. **Icons**: Lucide (via @iconify-json/lucide)
+5. **Components**: React 19+ (for interactive components)
+6. **TypeScript**: Strict mode configuration
+
+## Project Structure Standards
+```
+src/
+├── assets/          # Static assets (images, fonts, etc.)
+├── components/      # Reusable components
+│   ├── mdx/        # MDX-specific components
+│   └── widgets/    # Page-level components
+├── content/        # Content collections (blog posts, data, etc.)
+├── interface/      # TypeScript interface definitions
+├── layouts/        # Page layout templates
+├── pages/          # Route pages
+├── styles/         # Global styles
+└── utils/          # Utility functions
+```

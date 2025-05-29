@@ -5,6 +5,8 @@ import partytown from "@astrojs/partytown";
 import react from "@astrojs/react";
 
 import mdx from "@astrojs/mdx";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
 
 import tailwindcss from "@tailwindcss/vite";
 
@@ -16,5 +18,13 @@ export default defineConfig({
 
   vite: {
     plugins: [tailwindcss()],
+  },
+
+  markdown: {
+    shikiConfig: {
+      theme: "github-dark",
+    },
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeKatex],
   },
 });

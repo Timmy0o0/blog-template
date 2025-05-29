@@ -1,0 +1,181 @@
+---
+import type { MarkdownHeading } from "astro";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  headings: MarkdownHeading[];
+  isMobile?: boolean;
+}
+
+const { headings, isMobile = false } = Astro.props;
+
+// Filter out headings deeper than level 3, only show H1, H2, H3
+const filteredHeadings = headings.filter((heading) => heading.depth <= 3);
+---
+
+{
+  // Mobile version
+  isMobile ? (
+    <div class="bg-base-100/60 border-primary/20 rounded-lg border-l-4 p-4 backdrop-blur-sm">
+      <div class="text-base-content/80 mb-4 text-sm font-medium tracking-wider uppercase">
+        Contents
+      </div>
+      {filteredHeadings.length > 0 ? (
+        <nav class="toc-nav">
+          <ul class="space-y-1">
+            {filteredHeadings.map((heading) => (
+              <li>
+                <a
+                  href={`#${heading.slug}`}
+                  class={`toc-link hover:border-primary/30 hover:bg-base-200/50 block rounded-md border-l-2 border-transparent px-3 py-1.5 text-sm transition-all duration-200 ${
+                    heading.depth === 1
+                      ? "text-base-content font-medium"
+                      : heading.depth === 2
+                        ? "text-base-content/80 ml-3"
+                        : "text-base-content/60 ml-6"
+                  }`}
+                >
+                  {heading.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ) : (
+        <div class="text-base-content/60 bg-base-200/30 flex items-center gap-3 rounded-md p-3 text-sm">
+          <Icon name="lucide:info" class="h-4 w-4 flex-shrink-0" />
+          <span>No table of contents available</span>
+        </div>
+      )}
+    </div>
+  ) : (
+    // Desktop version - integrated design without card styling
+    <div class="sticky top-28">
+      <div class="bg-base-100/60 border-primary/20 rounded-lg border-l-4 p-4 backdrop-blur-sm">
+        <div class="text-base-content/80 mb-4 text-sm font-medium tracking-wider uppercase">
+          Contents
+        </div>
+        {filteredHeadings.length > 0 ? (
+          <nav class="toc-nav">
+            <ul class="space-y-1">
+              {filteredHeadings.map((heading) => (
+                <li>
+                  <a
+                    href={`#${heading.slug}`}
+                    class={`toc-link hover:border-primary/30 hover:bg-base-200/50 block rounded-md border-l-2 border-transparent px-3 py-1.5 text-sm transition-all duration-200 ${
+                      heading.depth === 1
+                        ? "text-base-content font-medium"
+                        : heading.depth === 2
+                          ? "text-base-content/80 ml-3"
+                          : "text-base-content/60 ml-6"
+                    }`}
+                  >
+                    {heading.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ) : (
+          <div class="text-base-content/60 bg-base-200/30 flex items-center gap-3 rounded-md p-3 text-sm">
+            <Icon name="lucide:info" class="h-4 w-4 flex-shrink-0" />
+            <span>No table of contents available</span>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+<style>
+  /* Add scroll margin to all elements with IDs to account for fixed header */
+  :global([id]) {
+    scroll-margin-top: 6rem; /* 96px for header offset */
+  }
+
+  /* Enable smooth scrolling for all anchor links */
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+</style>
+
+<script>
+  // Add active state highlighting (scroll behavior handled by CSS)
+  document.addEventListener("astro:page-load", () => {
+    // Only apply to desktop TOC (not mobile)
+    const desktopToc = document.querySelector(".sticky .toc-nav");
+    if (!desktopToc) return;
+
+    const tocLinks = desktopToc.querySelectorAll('a[href^="#"]');
+    const headings = Array.from(
+      document.querySelectorAll("h1[id], h2[id], h3[id]"),
+    ) as HTMLElement[];
+
+    // Highlight current section on scroll (only for desktop)
+    function highlightCurrentSection() {
+      const scrollTop = window.scrollY;
+      const headerOffset = 120; // Offset for better UX
+
+      let currentHeading = null;
+
+      // Find the current heading
+      for (let i = headings.length - 1; i >= 0; i--) {
+        const heading = headings[i];
+        if (heading.offsetTop <= scrollTop + headerOffset) {
+          currentHeading = heading;
+          break;
+        }
+      }
+
+      // Remove active class from all desktop TOC links
+      tocLinks.forEach((link) => {
+        link.classList.remove("active");
+        link.classList.remove(
+          "bg-primary/10",
+          "text-primary",
+          "border-primary",
+        );
+        link.classList.add("border-transparent");
+      });
+
+      // Add active class to current section
+      if (currentHeading && desktopToc) {
+        const activeLink = desktopToc.querySelector(
+          `a[href="#${currentHeading.id}"]`,
+        );
+        if (activeLink) {
+          activeLink.classList.add("active");
+          activeLink.classList.add(
+            "bg-primary/10",
+            "text-primary",
+            "border-primary",
+          );
+          activeLink.classList.remove("border-transparent");
+        }
+      }
+    }
+
+    // Throttle scroll events for better performance
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          highlightCurrentSection();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    // Add scroll listener
+    window.addEventListener("scroll", onScroll);
+
+    // Initial highlight
+    highlightCurrentSection();
+
+    // Clean up on page unload
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  });
+</script>

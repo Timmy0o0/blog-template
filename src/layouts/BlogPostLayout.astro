@@ -1,0 +1,83 @@
+---
+import BlogHeader from "@components/mdx/BlogHeader.astro";
+import BlogNavigation from "@components/mdx/BlogNavigation.astro";
+import CodeBlock from "@components/mdx/CodeBlock.astro";
+import ScrollToTop from "@components/mdx/ScrollToTop.astro";
+import TableOfContents from "@components/mdx/TableOfContents.astro";
+import type { MarkdownHeading } from "astro";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  post?: CollectionEntry<"blog">;
+  headings?: MarkdownHeading[];
+  prevPost?: CollectionEntry<"blog">;
+  nextPost?: CollectionEntry<"blog">;
+}
+
+const { post, headings = [], prevPost, nextPost } = Astro.props;
+---
+
+<div class="mx-auto max-w-7xl py-8">
+  <div class="lg:flex lg:gap-8">
+    <!-- Main content area -->
+    <div class="max-w-4xl flex-1">
+      {
+        post && (
+          <BlogHeader
+            title={post.data.title}
+            cover={post.data.cover}
+            pubDate={post.data.pubDate}
+            updatedDate={post.data.updatedDate}
+            categories={
+              post.data.categories?.map((cat) =>
+                typeof cat === "string" ? cat : cat.id,
+              ) || []
+            }
+            tags={
+              post.data.tags?.map((tag) =>
+                typeof tag === "string" ? tag : tag.id,
+              ) || []
+            }
+            slug={post.id}
+          />
+        )
+      }
+
+      <article
+        class="prose prose-lg prose-img:rounded-lg prose-img:shadow-md prose-ul:m-1 prose-ol:m-1 prose-li:m-1 max-w-none"
+      >
+        <slot />
+      </article>
+
+      <CodeBlock />
+
+      <!-- Blog Navigation -->
+      <BlogNavigation prevPost={prevPost} nextPost={nextPost} />
+
+      <!-- Mobile Table of Contents -->
+      <div class="mb-6 lg:hidden">
+        {
+          headings.length > 0 && (
+            <div class="collapse-arrow bg-base-200 border-base-300 collapse border">
+              <input type="checkbox" class="peer" />
+              <div class="collapse-title flex items-center gap-2 font-medium">
+                Table of Contents
+              </div>
+              <div class="collapse-content">
+                <TableOfContents headings={headings} isMobile={true} />
+              </div>
+            </div>
+          )
+        }
+      </div>
+    </div>
+
+    <!-- Desktop Table of Contents - Fixed positioned sidebar -->
+    <div class="hidden lg:block lg:w-80 lg:flex-shrink-0">
+      {headings.length > 0 && <TableOfContents headings={headings} />}
+    </div>
+  </div>
+</div>
+
+<!-- Scroll to Top Button - Fixed position on viewport -->
+<ScrollToTop />

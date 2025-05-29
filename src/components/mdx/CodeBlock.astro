@@ -1,0 +1,88 @@
+---
+// CodeBlock.astro - Code block copy functionality component
+import { Icon } from "astro-icon/components";
+---
+
+<!-- Copy button template -->
+<template id="copy-button-template">
+  <button
+    class="focus:ring-primary/80 absolute top-2 right-2 rounded-md border border-gray-600 bg-gray-700 p-2 hover:bg-gray-600 focus:ring-2 focus:outline-none"
+    aria-label="Copy code"
+    title="Copy code"
+  >
+    <Icon name="lucide:copy" class="copy-icon h-4 w-4 text-gray-300" />
+    <Icon
+      name="lucide:check"
+      class="check-icon hidden h-4 w-4 text-green-400"
+    />
+  </button>
+</template>
+
+<script>
+  function initCodeBlocks() {
+    // Find all pre elements
+    const preElements = document.querySelectorAll("pre");
+
+    preElements.forEach((pre) => {
+      // Skip if already processed
+      if (pre.hasAttribute("data-copy-processed")) {
+        return;
+      }
+
+      // Mark as processed
+      pre.setAttribute("data-copy-processed", "true");
+
+      // Ensure relative positioning
+      pre.style.position = "relative";
+
+      // Get template and clone button
+      const template = document.getElementById(
+        "copy-button-template",
+      ) as HTMLTemplateElement;
+      if (!template) return;
+
+      const copyButton = (
+        template.content.cloneNode(true) as DocumentFragment
+      ).querySelector("button");
+      if (!copyButton) return;
+
+      // Add click event listener
+      copyButton.addEventListener("click", async () => {
+        const codeElement = pre.querySelector("code") || pre;
+        const codeText = codeElement.textContent;
+
+        if (!codeText) return;
+
+        try {
+          await navigator.clipboard.writeText(codeText);
+
+          // Show success feedback
+          const copyIcon = copyButton.querySelector(".copy-icon");
+          const checkIcon = copyButton.querySelector(".check-icon");
+
+          if (copyIcon && checkIcon) {
+            copyIcon.classList.add("hidden");
+            checkIcon.classList.remove("hidden");
+
+            // Reset after 500ms
+            setTimeout(() => {
+              copyIcon.classList.remove("hidden");
+              checkIcon.classList.add("hidden");
+            }, 500);
+          }
+        } catch (err) {
+          console.error("Failed to copy code:", err);
+        }
+      });
+
+      // Append button to pre element
+      pre.appendChild(copyButton);
+    });
+  }
+
+  // Initialize on page load
+  document.addEventListener("astro:page-load", initCodeBlocks);
+
+  // Re-initialize after view transitions
+  document.addEventListener("astro:after-swap", initCodeBlocks);
+</script>

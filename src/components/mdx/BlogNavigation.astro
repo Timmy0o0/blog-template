@@ -1,0 +1,75 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  prevPost?: CollectionEntry<"blog">;
+  nextPost?: CollectionEntry<"blog">;
+}
+
+const { prevPost, nextPost } = Astro.props;
+---
+
+{
+  (prevPost || nextPost) && (
+    <nav
+      class="border-base-300 border-t mt-8 pt-4 pb-4 sm:pt-8"
+      aria-label="Blog post navigation"
+    >
+      <div class="flex flex-col sm:flex-row sm:justify-between">
+        <!-- Previous Post -->
+        {prevPost ? (
+          <a
+            href={`/${prevPost.id}`}
+            class="group flex flex-1 flex-col rounded-lg p-4 transition-all duration-200 hover:bg-base-200/50 hover:text-primary sm:p-3 md:p-4"
+          >
+            <span class="text-primary mb-2 text-xs font-medium sm:text-sm">
+              ← Previous
+            </span>
+            <div class="text-base-content mb-1 text-sm font-semibold leading-tight group-hover:text-primary sm:text-base">
+              {prevPost.data.title}
+            </div>
+            <time
+              class="text-base-content/60 text-xs sm:text-sm"
+              datetime={prevPost.data.pubDate.toISOString()}
+            >
+              {prevPost.data.pubDate.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+          </a>
+        ) : (
+          <div class="flex-1"></div>
+        )}
+
+        <!-- Next Post -->
+        {nextPost ? (
+          <a
+            href={`/${nextPost.id}`}
+            class="group flex flex-1 flex-col rounded-lg p-4 text-left transition-all duration-200 hover:bg-base-200/50 hover:text-primary sm:p-3 sm:text-right md:p-4"
+          >
+            <span class="text-primary mb-2 text-xs font-medium sm:text-sm">
+              Next →
+            </span>
+            <div class="text-base-content mb-1 text-sm font-semibold leading-tight group-hover:text-primary sm:text-base">
+              {nextPost.data.title}
+            </div>
+            <time
+              class="text-base-content/60 text-xs sm:text-sm"
+              datetime={nextPost.data.pubDate.toISOString()}
+            >
+              {nextPost.data.pubDate.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+          </a>
+        ) : (
+          <div class="flex-1"></div>
+        )}
+      </div>
+    </nav>
+  )
+} 

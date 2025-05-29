@@ -23,6 +23,3 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 .direnv
-
-# windsurf rules
-.windsurfrules

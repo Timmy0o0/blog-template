@@ -2,3 +2,4 @@ site:
   theme:
     light: "winter"
     dark: "dracula"
+    code: "github-dark"

@@ -1,0 +1,99 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<button
+  id="scroll-to-top"
+  class="bg-primary text-primary-content hover:bg-primary-focus fixed right-6 bottom-6 z-50 hidden h-12 w-12 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl focus:outline-none active:scale-95"
+  aria-label="Back to top"
+  title="Back to top"
+>
+  <Icon name="lucide:arrow-up" class="mx-auto h-6 w-6" />
+</button>
+
+<style>
+  #scroll-to-top {
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #scroll-to-top.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  #scroll-to-top:hover {
+    transform: translateY(-2px);
+  }
+
+  #scroll-to-top.show:hover {
+    transform: translateY(-2px);
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const scrollToTopButton = document.getElementById("scroll-to-top");
+
+    if (!scrollToTopButton) return;
+
+    // Show/hide button logic
+    function toggleScrollToTopButton() {
+      if (!scrollToTopButton) return;
+
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+      if (scrollTop > 300) {
+        scrollToTopButton.classList.add("show");
+        scrollToTopButton.classList.remove("hidden");
+      } else {
+        scrollToTopButton.classList.remove("show");
+        // Delay hiding to wait for animation to complete
+        setTimeout(() => {
+          if (
+            scrollToTopButton &&
+            !scrollToTopButton.classList.contains("show")
+          ) {
+            scrollToTopButton.classList.add("hidden");
+          }
+        }, 300);
+      }
+    }
+
+    // Scroll to top functionality
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+
+    // Throttle function to optimize scroll event performance
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          toggleScrollToTopButton();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    // Add event listeners
+    window.addEventListener("scroll", onScroll);
+    scrollToTopButton.addEventListener("click", scrollToTop);
+
+    // Initial check
+    toggleScrollToTopButton();
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (scrollToTopButton) {
+        scrollToTopButton.removeEventListener("click", scrollToTop);
+      }
+    };
+  });
+</script>
