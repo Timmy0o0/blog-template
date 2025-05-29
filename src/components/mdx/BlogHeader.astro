@@ -147,9 +147,9 @@ const breadcrumbs = slug ? generateBreadcrumbs(slug) : [];
 
   {
     (categories.length > 0 || tags.length > 0) && (
-      <div class="mb-8 flex flex-wrap justify-center gap-6">
+      <div class="mb-8 flex flex-col justify-center gap-4 md:flex-row md:gap-6">
         {categories.length > 0 && (
-          <div class="flex flex-wrap items-center gap-2">
+          <div class="flex flex-wrap items-center justify-center gap-2">
             <span class="text-base-content/70 text-sm font-semibold">
               Categories:
             </span>
@@ -164,7 +164,7 @@ const breadcrumbs = slug ? generateBreadcrumbs(slug) : [];
         )}
 
         {tags.length > 0 && (
-          <div class="flex flex-wrap items-center gap-2">
+          <div class="flex flex-wrap items-center justify-center gap-2">
             <span class="text-base-content/70 text-sm font-semibold">
               Tags:
             </span>

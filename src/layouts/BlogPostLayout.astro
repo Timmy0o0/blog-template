@@ -2,6 +2,7 @@
 import BlogHeader from "@components/mdx/BlogHeader.astro";
 import BlogNavigation from "@components/mdx/BlogNavigation.astro";
 import CodeBlock from "@components/mdx/CodeBlock.astro";
+import RelatedPosts from "@components/mdx/RelatedPosts.astro";
 import ScrollToTop from "@components/mdx/ScrollToTop.astro";
 import TableOfContents from "@components/mdx/TableOfContents.astro";
 import type { MarkdownHeading } from "astro";
@@ -51,14 +52,11 @@ const { post, headings = [], prevPost, nextPost } = Astro.props;
 
       <CodeBlock />
 
-      <!-- Blog Navigation -->
-      <BlogNavigation prevPost={prevPost} nextPost={nextPost} />
-
-      <!-- Mobile Table of Contents -->
-      <div class="mb-6 lg:hidden">
+      <!-- Mobile Table of Contents - moved to be above BlogNavigation -->
+      <div class="lg:hidden">
         {
           headings.length > 0 && (
-            <div class="collapse-arrow bg-base-200 border-base-300 collapse border">
+            <div class="collapse-arrow bg-base-200 border-base-300 collapse mt-4 border">
               <input type="checkbox" class="peer" />
               <div class="collapse-title flex items-center gap-2 font-medium">
                 Table of Contents
@@ -70,6 +68,24 @@ const { post, headings = [], prevPost, nextPost } = Astro.props;
           )
         }
       </div>
+
+      <!-- Blog Navigation -->
+      <BlogNavigation prevPost={prevPost} nextPost={nextPost} />
+
+      <div class="divider"></div>
+
+      <!-- Related Posts -->
+      {
+        post && post.data.relatedPosts && (
+          <RelatedPosts
+            relatedPostIds={post.data.relatedPosts.map((ref) =>
+              typeof ref === "string" ? ref : ref.id,
+            )}
+            currentPostId={post.id}
+            maxPosts={3}
+          />
+        )
+      }
     </div>
 
     <!-- Desktop Table of Contents - Fixed positioned sidebar -->

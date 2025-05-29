@@ -1,0 +1,78 @@
+---
+import PostCard from "@components/widgets/PostCard.astro";
+import { Icon } from "astro-icon/components";
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+
+interface Props {
+  relatedPostIds?: string[];
+  currentPostId?: string;
+  maxPosts?: number;
+}
+
+const { relatedPostIds = [], currentPostId, maxPosts = 3 } = Astro.props;
+
+let relatedPosts: CollectionEntry<"blog">[] = [];
+
+if (relatedPostIds.length > 0) {
+  try {
+    // Get all blog posts
+    const allPosts = await getCollection("blog");
+    
+    // Filter related posts by IDs, excluding current post
+    relatedPosts = allPosts
+      .filter((post) => 
+        relatedPostIds.includes(post.id) && 
+        post.id !== currentPostId
+      )
+      .slice(0, maxPosts);
+    
+    // Sort by publication date (newest first)
+    relatedPosts.sort((a, b) => 
+      new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+    );
+  } catch (error) {
+    console.warn("Error loading related posts:", error);
+    relatedPosts = [];
+  }
+}
+---
+
+{
+  relatedPosts.length > 0 && (
+    <section class="mt-8">
+      <!-- Section Header -->
+      <div class="mb-4 text-center">
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <Icon name="lucide:bookmark" class="h-6 w-6 text-primary" />
+          <h2 class="text-2xl font-bold text-base-content">Related Posts</h2>
+        </div>
+        <p class="text-base-content/70 text-sm max-w-md mx-auto">
+          Discover more articles that might interest you
+        </p>
+      </div>
+
+      <!-- Related Posts Grid -->
+      <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {relatedPosts.map((post) => (
+          <PostCard 
+            post={post}
+          />
+        ))}
+      </div>
+
+      <!-- Show more link if there are additional related posts -->
+      {relatedPostIds.length > maxPosts && (
+        <div class="mt-8 text-center">
+          <a 
+            href="/blog" 
+            class="btn btn-outline btn-primary btn-sm gap-2"
+          >
+            <Icon name="lucide:arrow-right" class="h-4 w-4" />
+            View More Posts
+          </a>
+        </div>
+      )}
+    </section>
+  )
+}
