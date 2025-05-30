@@ -1,2 +1,6 @@
-- id: Test-Tag
+- id: tag1
   order: 1
+  name: "Tag name 1"
+- id: tag2
+  order: 2
+  name: "Tag name 2"

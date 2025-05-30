@@ -6,7 +6,7 @@ const blog = defineCollection({
   schema: ({ image }) =>
     z.object({
       order: z.number(),
-      categories: z.array(reference("categories")),
+      category: reference("category"),
       tags: z.array(reference("tags")),
       cover: image(),
       title: z.string(),
@@ -17,12 +17,15 @@ const blog = defineCollection({
     }),
 });
 
-const categories = defineCollection({
+const category = defineCollection({
   loader: file("./src/content/categories.yaml"),
-  schema: z.object({
-    id: z.string(),
-    order: z.number(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      id: z.string(),
+      order: z.number(),
+      cover: image(),
+      name: z.string(),
+    }),
 });
 
 const tags = defineCollection({
@@ -30,7 +33,8 @@ const tags = defineCollection({
   schema: z.object({
     id: z.string(),
     order: z.number(),
+    name: z.string(),
   }),
 });
 
-export const collections = { blog, categories, tags };
+export const collections = { blog, category, tags };

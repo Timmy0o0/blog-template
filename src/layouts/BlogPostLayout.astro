@@ -6,7 +6,7 @@ import RelatedPosts from "@components/mdx/RelatedPosts.astro";
 import ScrollToTop from "@components/mdx/ScrollToTop.astro";
 import TableOfContents from "@components/mdx/TableOfContents.astro";
 import type { MarkdownHeading } from "astro";
-import type { CollectionEntry } from "astro:content";
+import { getEntries, type CollectionEntry } from "astro:content";
 
 interface Props {
   post?: CollectionEntry<"blog">;
@@ -16,34 +16,16 @@ interface Props {
 }
 
 const { post, headings = [], prevPost, nextPost } = Astro.props;
+
+const relatedPosts = await getEntries(post?.data.relatedPosts || []);
 ---
 
 <div class="mx-auto max-w-7xl py-8">
   <div class="lg:flex lg:gap-8">
     <!-- Main content area -->
     <div class="max-w-4xl flex-1">
-      {
-        post && (
-          <BlogHeader
-            title={post.data.title}
-            cover={post.data.cover}
-            pubDate={post.data.pubDate}
-            updatedDate={post.data.updatedDate}
-            categories={
-              post.data.categories?.map((cat) =>
-                typeof cat === "string" ? cat : cat.id,
-              ) || []
-            }
-            tags={
-              post.data.tags?.map((tag) =>
-                typeof tag === "string" ? tag : tag.id,
-              ) || []
-            }
-            slug={post.id}
-          />
-        )
-      }
-
+      {post && <BlogHeader post={post} />}
+      <div class="divider"></div>
       <article
         class="prose prose-lg prose-img:rounded-lg prose-img:shadow-md prose-ul:m-1 prose-ol:m-1 prose-li:m-1 max-w-none"
       >
@@ -76,12 +58,10 @@ const { post, headings = [], prevPost, nextPost } = Astro.props;
 
       <!-- Related Posts -->
       {
-        post && post.data.relatedPosts && (
+        post && relatedPosts.length > 0 && (
           <RelatedPosts
-            relatedPostIds={post.data.relatedPosts.map((ref) =>
-              typeof ref === "string" ? ref : ref.id,
-            )}
-            currentPostId={post.id}
+            categoryId={post.data.category.id}
+            relatedPosts={relatedPosts}
             maxPosts={3}
           />
         )

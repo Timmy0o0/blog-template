@@ -2,44 +2,22 @@
 import PostCard from "@components/widgets/PostCard.astro";
 import { Icon } from "astro-icon/components";
 import type { CollectionEntry } from "astro:content";
-import { getCollection } from "astro:content";
 
 interface Props {
-  relatedPostIds?: string[];
-  currentPostId?: string;
+  categoryId: string;
   maxPosts?: number;
+  relatedPosts?: CollectionEntry<"blog">[];
 }
 
-const { relatedPostIds = [], currentPostId, maxPosts = 3 } = Astro.props;
+const { categoryId, relatedPosts, maxPosts = 3 } = Astro.props;
 
-let relatedPosts: CollectionEntry<"blog">[] = [];
+const displayPosts = relatedPosts ? relatedPosts.slice(0, maxPosts) : [];
+const hasMorePosts = relatedPosts && relatedPosts.length >= maxPosts;
 
-if (relatedPostIds.length > 0) {
-  try {
-    // Get all blog posts
-    const allPosts = await getCollection("blog");
-    
-    // Filter related posts by IDs, excluding current post
-    relatedPosts = allPosts
-      .filter((post) => 
-        relatedPostIds.includes(post.id) && 
-        post.id !== currentPostId
-      )
-      .slice(0, maxPosts);
-    
-    // Sort by publication date (newest first)
-    relatedPosts.sort((a, b) => 
-      new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
-    );
-  } catch (error) {
-    console.warn("Error loading related posts:", error);
-    relatedPosts = [];
-  }
-}
 ---
 
 {
-  relatedPosts.length > 0 && (
+  relatedPosts && relatedPosts.length > 0 && (
     <section class="mt-8">
       <!-- Section Header -->
       <div class="mb-4 text-center">
@@ -54,22 +32,22 @@ if (relatedPostIds.length > 0) {
 
       <!-- Related Posts Grid -->
       <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {relatedPosts.map((post) => (
+        {displayPosts.map((post) => (
           <PostCard 
             post={post}
           />
         ))}
       </div>
 
-      <!-- Show more link if there are additional related posts -->
-      {relatedPostIds.length > maxPosts && (
-        <div class="mt-8 text-center">
+      <!-- Read More Link -->
+      {hasMorePosts && (
+        <div class="mt-6 text-center">
           <a 
-            href="/blog" 
-            class="btn btn-outline btn-primary btn-sm gap-2"
+            href={`/${categoryId}`}
+            class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary hover:text-primary-focus transition-colors duration-200 border border-primary hover:border-primary-focus rounded-lg hover:bg-primary/10"
           >
+            <span>Read more posts</span>
             <Icon name="lucide:arrow-right" class="h-4 w-4" />
-            View More Posts
           </a>
         </div>
       )}

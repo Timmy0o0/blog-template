@@ -1,0 +1,58 @@
+---
+import CategoryHeader from "@components/widgets/CategoryHeader.astro";
+import PostCard from "@components/widgets/PostCard.astro";
+import BaseLayout from "@layouts/BaseLayout.astro";
+import { getAllCategories, getPostByCategory } from "@utils/blog-utils";
+
+export async function getStaticPaths() {
+  const categories = await getAllCategories();
+  return categories.map((category) => ({
+    params: { categoryId: category.id },
+    props: {
+      category: category,
+    },
+  }));
+}
+
+const { categoryId } = Astro.params;
+const { category } = Astro.props;
+
+const postsByCategory = await getPostByCategory(categoryId);
+
+// Get posts count and sort by date
+const sortedPosts = postsByCategory.sort(
+  (a, b) =>
+    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+);
+---
+
+<BaseLayout>
+  <CategoryHeader
+    categoryId={categoryId}
+    categoryName={category?.data.name}
+    cover={category?.data.cover}
+    postCount={sortedPosts.length}
+  />
+
+  <div class="divider"></div>
+
+  <!-- Posts Grid -->
+  {
+    sortedPosts.length > 0 ? (
+      <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {sortedPosts.map((post) => (
+          <PostCard post={post} />
+        ))}
+      </div>
+    ) : (
+      <div class="py-12 text-center">
+        <div class="text-base-content/60 text-lg">
+          No posts found in this category yet.
+        </div>
+        <a href="/" class="btn btn-primary mt-4">
+          Back to Home
+        </a>
+      </div>
+    )
+  }
+</BaseLayout>

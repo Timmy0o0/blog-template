@@ -12,9 +12,7 @@ export async function getPostByCategory(
   category: string,
 ): Promise<CollectionEntry<"blog">[]> {
   return getAllPosts().then((posts) =>
-    posts.filter((post) =>
-      post.data.categories.some((cat) => cat.id === category),
-    ),
+    posts.filter((post) => post.data.category.id === category),
   );
 }
 
@@ -36,11 +34,11 @@ export function sortPostsByOrder(
   );
 }
 
-// categories
+// category
 export async function getAllCategories(): Promise<
-  CollectionEntry<"categories">[]
+  CollectionEntry<"category">[]
 > {
-  const allCategories = await getCollection("categories");
+  const allCategories = await getCollection("category");
 
   return allCategories;
 }

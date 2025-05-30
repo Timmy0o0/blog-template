@@ -2,12 +2,22 @@
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
+import { getEntries, getEntry } from "astro:content";
 
 interface Props {
   post: CollectionEntry<"blog">;
 }
 
 const { post } = Astro.props;
+
+// Resolve the category reference
+const category = post.data.category ? await getEntry(post.data.category) : null;
+
+// Resolve the tags references
+const tags =
+  post.data.tags && post.data.tags.length > 0
+    ? await getEntries(post.data.tags.slice(0, 2))
+    : [];
 
 const formatDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US", {
@@ -45,42 +55,31 @@ const formatDate = (date: Date) => {
         {post.data.title}
       </div>
 
-      <!-- Categories and Tags in the same row -->
-      <div class="mb-2 flex items-center justify-between">
+      <!-- Categories and Tags separated -->
+      <div class="mb-3 space-y-2">
         <!-- Categories -->
-        <div class="flex flex-wrap gap-1">
-          {
-            post.data.categories && post.data.categories.length > 0 && (
-              <>
-                {post.data.categories.slice(0, 2).map((category) => (
-                  <div class="badge badge-primary badge-sm">
-                    {typeof category === "string" ? category : category.id}
-                  </div>
-                ))}
-                {post.data.categories.length > 2 && (
-                  <div class="badge badge-outline badge-sm">
-                    +{post.data.categories.length - 2}
-                  </div>
-                )}
-              </>
-            )
-          }
-        </div>
+        {
+          category && (
+            <div class="flex flex-wrap gap-1">
+              <div class="badge badge-primary badge-sm">
+                {category.data.name}
+              </div>
+            </div>
+          )
+        }
 
         <!-- Tags -->
-        <div class="flex gap-1">
-          {
-            post.data.tags && post.data.tags.length > 0 && (
-              <>
-                {post.data.tags.slice(0, 2).map((tag) => (
-                  <div class="badge badge-secondary badge-xs">
-                    #{typeof tag === "string" ? tag : tag.id}
-                  </div>
-                ))}
-              </>
-            )
-          }
-        </div>
+        {
+          tags.length > 0 && (
+            <div class="flex flex-wrap gap-1">
+              {tags.map((tag) => (
+                <div class="badge badge-secondary badge-xs">
+                  #{tag.data.name}
+                </div>
+              ))}
+            </div>
+          )
+        }
       </div>
 
       <!-- Meta info -->

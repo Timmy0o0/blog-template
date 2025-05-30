@@ -1,2 +1,4 @@
 - id: sub
   order: 1
+  cover: "src/assets/test/cover.png"
+  name: "Sub name"
