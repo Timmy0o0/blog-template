@@ -1,21 +1,6 @@
 import type { CollectionEntry } from "astro:content";
 import { getCollection, getEntries, getEntry } from "astro:content";
 
-export async function getAllPosts(): Promise<CollectionEntry<"blog">[]> {
-  const allBlogPosts = await getCollection("blog");
-
-  return allBlogPosts;
-}
-
-// blog
-export async function getPostByCategory(
-  category: string,
-): Promise<CollectionEntry<"blog">[]> {
-  return getAllPosts().then((posts) =>
-    posts.filter((post) => post.data.category.id === category),
-  );
-}
-
 // Group blog posts by subcategory and sort by order field
 export async function getPostsGroupedBySubCategory(categoryId: string): Promise<
   {
