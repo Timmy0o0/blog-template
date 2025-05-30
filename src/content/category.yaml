@@ -2,3 +2,6 @@
   order: 1
   cover: "src/assets/test/cover.png"
   name: "Sub name"
+  subCategories:
+    - sub1
+    - sub2

@@ -1,8 +1,12 @@
 ---
 import CategoryHeader from "@components/widgets/CategoryHeader.astro";
 import PostCard from "@components/widgets/PostCard.astro";
+import SubCategoryHeader from "@components/widgets/SubCategoryHeader.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import { getAllCategories, getPostByCategory } from "@utils/blog-utils";
+import {
+  getAllCategories,
+  getPostsGroupedBySubCategory,
+} from "@utils/blog-utils";
 
 export async function getStaticPaths() {
   const categories = await getAllCategories();
@@ -17,12 +21,14 @@ export async function getStaticPaths() {
 const { categoryId } = Astro.params;
 const { category } = Astro.props;
 
-const postsByCategory = await getPostByCategory(categoryId);
+// Get posts grouped by subcategory
+const postsGroupedBySubCategory =
+  await getPostsGroupedBySubCategory(categoryId);
 
-// Get posts count and sort by date
-const sortedPosts = postsByCategory.sort(
-  (a, b) =>
-    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+// Calculate total post count
+const totalPostCount = postsGroupedBySubCategory.reduce(
+  (total, group) => total + group.posts.length,
+  0,
 );
 ---
 
@@ -31,17 +37,38 @@ const sortedPosts = postsByCategory.sort(
     categoryId={categoryId}
     categoryName={category?.data.name}
     cover={category?.data.cover}
-    postCount={sortedPosts.length}
+    postCount={totalPostCount}
   />
 
   <div class="divider"></div>
 
-  <!-- Posts Grid -->
+  <!-- Posts by SubCategory -->
   {
-    sortedPosts.length > 0 ? (
-      <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {sortedPosts.map((post) => (
-          <PostCard post={post} />
+    postsGroupedBySubCategory.length > 0 ? (
+      <div class="space-y-16 py-12">
+        {postsGroupedBySubCategory.map((group) => (
+          <div>
+            {/* SubCategory Header */}
+            <SubCategoryHeader
+              subCategory={group.subCategory}
+              postCount={group.posts.length}
+            />
+
+            {/* Posts grid for this subcategory */}
+            {group.posts.length > 0 ? (
+              <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+                {group.posts.map((post) => (
+                  <PostCard post={post} />
+                ))}
+              </div>
+            ) : (
+              <div class="py-6 text-center">
+                <div class="text-base-content/60 text-sm">
+                  No posts found in this subcategory yet.
+                </div>
+              </div>
+            )}
+          </div>
         ))}
       </div>
     ) : (

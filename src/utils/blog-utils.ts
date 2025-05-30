@@ -1,5 +1,5 @@
 import type { CollectionEntry } from "astro:content";
-import { getCollection } from "astro:content";
+import { getCollection, getEntries, getEntry } from "astro:content";
 
 export async function getAllPosts(): Promise<CollectionEntry<"blog">[]> {
   const allBlogPosts = await getCollection("blog");
@@ -14,6 +14,47 @@ export async function getPostByCategory(
   return getAllPosts().then((posts) =>
     posts.filter((post) => post.data.category.id === category),
   );
+}
+
+// Group blog posts by subcategory and sort by order field
+export async function getPostsGroupedBySubCategory(categoryId: string): Promise<
+  {
+    subCategory: CollectionEntry<"subCategory">;
+    posts: CollectionEntry<"blog">[];
+  }[]
+> {
+  const category = await getEntry("category", categoryId);
+
+  if (!category) {
+    return [];
+  }
+
+  // Get all posts by category
+  const postsByCategory = await getCollection("blog", ({ data }) => {
+    return data.category.id === categoryId;
+  });
+
+  // Get all subcategories under this category
+  const categorySubCategories = await getEntries(category.data.subCategories);
+
+  // Sort subcategories by order field
+  const sortedSubCategories = categorySubCategories.sort(
+    (a, b) => a.data.order - b.data.order,
+  );
+
+  // Get corresponding blog posts for each subcategory and sort by order field
+  const result = sortedSubCategories.map((subCategory) => {
+    const posts = postsByCategory
+      .filter((post) => post.data.subCategory.id === subCategory.id)
+      .sort((a, b) => a.data.order - b.data.order);
+
+    return {
+      subCategory,
+      posts,
+    };
+  });
+
+  return result;
 }
 
 export function sortPostsByDate(
@@ -43,9 +84,9 @@ export async function getAllCategories(): Promise<
   return allCategories;
 }
 
-// tags
-export async function getAllTags(): Promise<CollectionEntry<"tags">[]> {
-  const allTags = await getCollection("tags");
+// tag
+export async function getAllTags(): Promise<CollectionEntry<"tag">[]> {
+  const allTags = await getCollection("tag");
 
   return allTags;
 }
