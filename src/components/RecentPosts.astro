@@ -1,0 +1,30 @@
+---
+import { getCollection } from "astro:content";
+import PostCard from "./widgets/PostCard.astro";
+
+// Get the latest 4 articles
+const allPosts = await getCollection("blog");
+const recentPosts = allPosts
+  .sort(
+    (a, b) =>
+      new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+  )
+  .slice(0, 8);
+---
+
+<section class="py-12 md:py-16">
+  <div class="container mx-auto">
+    <div class="mb-8 text-center">
+      <h2 class="text-base-content text-3xl font-bold md:text-4xl">
+        Latest Posts
+      </h2>
+      <p class="text-base-content/70 mt-4">
+        Explore mathematical theories and scientific discoveries
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {recentPosts.map((post) => <PostCard post={post} />)}
+    </div>
+  </div>
+</section>
