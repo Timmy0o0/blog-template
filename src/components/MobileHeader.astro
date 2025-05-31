@@ -1,5 +1,4 @@
 ---
-import logo from "@assets/astro.svg";
 import { Icon } from "astro-icon/components";
 import ThemeToggleButton from "@components/widgets/ThemeToggleButton.astro";
 
@@ -15,6 +14,8 @@ const navLinks = [
   },
   { text: "About", href: "/about" },
 ];
+
+const title = "MyBlog";
 ---
 
 <header
@@ -24,8 +25,11 @@ const navLinks = [
   <!-- Mobile Navigation Bar (Collapsed State) -->
   <nav class="navbar mx-auto w-full px-2">
     <div class="navbar-start">
-      <a href="/" class="flex items-center pl-2.5">
-        <img src={logo.src} alt="logo" />
+      <a
+        href="/"
+        class="flex items-center pl-2.5 text-xl font-bold transition-colors"
+      >
+        {title}
       </a>
     </div>
     <div class="navbar-end">
