@@ -1,16 +1,25 @@
 ---
 import { Icon } from "astro-icon/components";
 import ThemeToggleButton from "@components/widgets/ThemeToggleButton.astro";
+import { getCollection } from "astro:content";
+
+const categories = await getCollection("category");
+
+const blogSubLinks = [
+  ...categories
+    .sort((a, b) => a.data.order - b.data.order)
+    .map((category) => ({
+      text: category.data.name,
+      href: `/${category.data.id}`,
+    })),
+];
 
 const navLinks = [
   { text: "Home", href: "/" },
   {
     text: "Blog",
     href: "#",
-    subLinks: [
-      { text: "Blog List", href: "/blog" },
-      { text: "Article", href: "/blog/article-example" },
-    ],
+    subLinks: blogSubLinks,
   },
   { text: "About", href: "/about" },
 ];
