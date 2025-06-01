@@ -1,5 +1,9 @@
 ---
 import { SITE_TITLE } from "@config";
+import {
+  generateCategoryBreadcrumbs,
+  type BreadcrumbItem,
+} from "@utils/breadcrumb-utils";
 import type { ImageMetadata } from "astro";
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
@@ -14,13 +18,10 @@ interface Props {
 const { categoryId, categoryName, image, postCount = 0 } = Astro.props;
 
 // Generate breadcrumb for category page
-const breadcrumbs = [
-  {
-    label: categoryName,
-    href: `/${categoryId}`,
-    isLast: true,
-  },
-];
+const breadcrumbs: BreadcrumbItem[] = generateCategoryBreadcrumbs(
+  categoryId,
+  categoryName,
+);
 ---
 
 <header class="prose my-8 max-w-none">

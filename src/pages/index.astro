@@ -1,17 +1,33 @@
 ---
 import Hero from "@components/Hero.astro";
 import RecentPosts from "@components/RecentPosts.astro";
+import { SITE_DESCRIPTION, SITE_TITLE, USER_SITE } from "@config";
 import type { Metadata } from "@interface/data";
 import BaseLayout from "@layouts/BaseLayout.astro";
+import { generateBreadcrumbJsonLd } from "@utils/breadcrumb-utils";
+import { createJsonLdSchema, createWebSiteSchema } from "@utils/json-ld-utils";
 
 const metadata: Metadata = {
-  title: "Home",
-  description: "Home",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
   type: "website",
 };
+
+// Generate breadcrumb JSON-LD for home page (just the home breadcrumb)
+const breadcrumbJsonLd = generateBreadcrumbJsonLd([]);
+
+// Create website schema
+const websiteSchema = createWebSiteSchema(
+  SITE_TITLE,
+  SITE_DESCRIPTION,
+  USER_SITE,
+);
+
+// Create unified JSON-LD schema using @graph structure
+const jsonLdSchema = createJsonLdSchema([websiteSchema, breadcrumbJsonLd]);
 ---
 
-<BaseLayout metadata={metadata}>
+<BaseLayout metadata={metadata} jsonLdSchema={jsonLdSchema}>
   <Hero />
   <RecentPosts />
 </BaseLayout>

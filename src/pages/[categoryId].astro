@@ -2,12 +2,21 @@
 import CategoryHeader from "@components/widgets/CategoryHeader.astro";
 import PostCard from "@components/widgets/PostCard.astro";
 import SubCategoryHeader from "@components/widgets/SubCategoryHeader.astro";
+import { SITE_TITLE, USER_SITE } from "@config";
 import type { Metadata } from "@interface/data";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import {
   getAllCategories,
   getPostsGroupedBySubCategory,
 } from "@utils/blog-utils";
+import {
+  generateBreadcrumbJsonLd,
+  generateCategoryBreadcrumbs,
+} from "@utils/breadcrumb-utils";
+import {
+  createCollectionPageSchema,
+  createJsonLdSchema,
+} from "@utils/json-ld-utils";
 
 export async function getStaticPaths() {
   const categories = await getAllCategories();
@@ -38,9 +47,39 @@ const metadata: Metadata = {
   image: category.data.image?.src,
   type: "website",
 };
+
+// Get all posts in this category for JSON-LD
+const allPostsInCategory = postsGroupedBySubCategory.flatMap(
+  (group) => group.posts,
+);
+
+// Generate breadcrumb JSON-LD
+const breadcrumbs = generateCategoryBreadcrumbs(
+  categoryId,
+  category.data.title,
+);
+const breadcrumbJsonLd = generateBreadcrumbJsonLd(breadcrumbs);
+
+// Create collection page schema
+const collectionPageSchema = createCollectionPageSchema(
+  `${USER_SITE}/${categoryId}`,
+  category.data.title,
+  category.data.description,
+  `${USER_SITE}${category.data.image.src}`,
+  SITE_TITLE,
+  USER_SITE,
+  totalPostCount,
+  allPostsInCategory,
+);
+
+// Create unified JSON-LD schema using @graph structure
+const jsonLdSchema = createJsonLdSchema([
+  collectionPageSchema,
+  breadcrumbJsonLd,
+]);
 ---
 
-<BaseLayout metadata={metadata}>
+<BaseLayout metadata={metadata} jsonLdSchema={jsonLdSchema}>
   <CategoryHeader
     categoryId={categoryId}
     categoryName={category.data.title}

@@ -75,3 +75,14 @@ export async function getAllTags(): Promise<CollectionEntry<"tag">[]> {
 
   return allTags;
 }
+
+// Get tag titles from a post's tags for keywords generation
+export async function getTagTitles(
+  tagReferences: Array<{ id: string; collection: "tag" }>,
+): Promise<string[]> {
+  if (!tagReferences || tagReferences.length === 0) {
+    return [];
+  }
+  const tagEntries = await getEntries(tagReferences);
+  return tagEntries.map((tag) => tag.data.title);
+}

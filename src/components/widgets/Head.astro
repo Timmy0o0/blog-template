@@ -1,11 +1,13 @@
 ---
+import JsonLd from "@components/widgets/JsonLd.astro";
 import type { Metadata } from "@interface/data";
 
 interface Props {
   metadata: Metadata;
+  jsonLdSchema?: object | object[];
 }
 
-const { metadata } = Astro.props;
+const { metadata, jsonLdSchema } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
@@ -36,3 +38,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <meta name="twitter:title" content={metadata.title} />
 <meta name="twitter:description" content={metadata.description} />
 {metadata.image && <meta name="twitter:image" content={metadata.image} />}
+
+<!-- JSON-LD -->
+{jsonLdSchema && <JsonLd schema={jsonLdSchema} />}

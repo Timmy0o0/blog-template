@@ -1,5 +1,9 @@
 ---
 import { SITE_TITLE } from "@config";
+import {
+  generatePostBreadcrumbs,
+  type BreadcrumbItem,
+} from "@utils/breadcrumb-utils";
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import { getEntries, getEntry, type CollectionEntry } from "astro:content";
@@ -22,24 +26,12 @@ const formatDate = (date: Date) => {
 };
 
 // Generate breadcrumb items from slug: category/post
-const generateBreadcrumbs = () => {
-  const breadcrumbs: { label: string; href: string; isLast: boolean }[] = [];
-
-  breadcrumbs.push({
-    label: category.data.title,
-    href: `/${category.data.id}`,
-    isLast: false,
-  });
-  breadcrumbs.push({
-    label: post.data.title,
-    href: `/${post.id}`,
-    isLast: true,
-  });
-
-  return breadcrumbs;
-};
-
-const breadcrumbs = generateBreadcrumbs();
+const breadcrumbs: BreadcrumbItem[] = generatePostBreadcrumbs(
+  category.data.id,
+  category.data.title,
+  post.id,
+  post.data.title,
+);
 ---
 
 <header class="prose mb-8 max-w-none">
