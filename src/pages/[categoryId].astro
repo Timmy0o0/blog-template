@@ -35,7 +35,7 @@ const totalPostCount = postsGroupedBySubCategory.reduce(
 const metadata: Metadata = {
   title: category.data.title,
   description: category.data.description,
-  image: category.data.cover?.src,
+  image: category.data.image?.src,
   type: "website",
 };
 ---
@@ -44,7 +44,7 @@ const metadata: Metadata = {
   <CategoryHeader
     categoryId={categoryId}
     categoryName={category.data.title}
-    cover={category.data.cover}
+    image={category.data.image}
     postCount={totalPostCount}
   />
 

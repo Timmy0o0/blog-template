@@ -1,4 +1,5 @@
 ---
+import { SITE_TITLE } from "@config";
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import { getEntries, getEntry, type CollectionEntry } from "astro:content";
@@ -80,11 +81,11 @@ const breadcrumbs = generateBreadcrumbs();
   }
 
   {
-    post.data.cover && (
+    post.data.image && (
       <figure class="relative overflow-hidden rounded-xl">
         <Image
-          src={post.data.cover}
-          alt={`${post.data.title} cover image`}
+          src={post.data.image}
+          alt={`${post.data.title} - ${SITE_TITLE}`}
           class="h-64 w-full rounded-xl object-cover transition-transform duration-500 hover:scale-105 md:h-80 lg:h-96"
           loading="eager"
           quality={90}

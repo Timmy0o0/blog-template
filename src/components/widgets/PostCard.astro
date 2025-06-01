@@ -1,4 +1,5 @@
 ---
+import { SITE_TITLE } from "@config";
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
@@ -33,11 +34,11 @@ const formatDate = (date: Date) => {
 >
   <a href={`/${post.id}`} class="block">
     {
-      post.data.cover && (
+      post.data.image && (
         <figure class="relative overflow-hidden rounded-t-lg">
           <Image
-            src={post.data.cover}
-            alt={post.data.title}
+            src={post.data.image}
+            alt={`${post.data.title} - ${SITE_TITLE}`}
             class="h-40 w-full object-cover transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
             quality={80}

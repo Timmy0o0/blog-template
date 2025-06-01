@@ -1,4 +1,6 @@
 export interface SiteConfig {
+  title: string;
+  description: string;
   theme: {
     light: string;
     dark: string;

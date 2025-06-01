@@ -1,4 +1,6 @@
 site:
+  title: "My Blog"
+  description: "My Blog description"
   theme:
     light: "winter"
     dark: "dracula"

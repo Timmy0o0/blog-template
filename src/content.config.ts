@@ -9,7 +9,7 @@ const blog = defineCollection({
       category: reference("category"),
       subCategory: reference("subCategory"),
       tags: z.array(reference("tag")),
-      cover: image(),
+      image: image(),
       title: z.string(),
       description: z.string(),
       pubDate: z.coerce.date(),
@@ -24,7 +24,7 @@ const category = defineCollection({
     z.object({
       id: z.string(),
       order: z.number(),
-      cover: image(),
+      image: image(),
       title: z.string(),
       description: z.string(),
       subCategories: z.array(reference("subCategory")),

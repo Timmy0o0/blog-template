@@ -2,6 +2,7 @@
 import { Icon } from "astro-icon/components";
 import ThemeToggleButton from "@components/widgets/ThemeToggleButton.astro";
 import { getCollection } from "astro:content";
+import { SITE_TITLE } from "@config";
 
 const categories = await getCollection("category");
 
@@ -23,8 +24,6 @@ const navLinks = [
   },
   { text: "About", href: "/about" },
 ];
-
-const title = "MyBlog";
 ---
 
 <header
@@ -34,7 +33,9 @@ const title = "MyBlog";
   <!-- Main Navigation -->
   <nav class="navbar mx-auto max-w-7xl px-6 sm:px-8 lg:px-10">
     <div class="navbar-start">
-      <a href="/" class="text-2xl font-bold transition-colors"> {title} </a>
+      <a href="/" class="text-2xl font-bold transition-colors">
+        {SITE_TITLE}
+      </a>
     </div>
     <div class="navbar-center hidden lg:flex">
       <ul class="menu menu-horizontal gap-2 px-2 text-lg">

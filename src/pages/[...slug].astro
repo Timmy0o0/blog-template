@@ -34,7 +34,7 @@ const { Content, headings } = await render(post);
 const metadata: Metadata = {
   title: post.data.title,
   description: post.data.description,
-  image: post.data.cover?.src,
+  image: post.data.image?.src,
   type: "article",
 };
 ---

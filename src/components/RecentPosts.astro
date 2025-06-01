@@ -1,6 +1,6 @@
 ---
+import PostCard from "@components/widgets/PostCard.astro";
 import { getCollection } from "astro:content";
-import PostCard from "./widgets/PostCard.astro";
 
 // Get the latest 4 articles
 const allPosts = await getCollection("blog");
