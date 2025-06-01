@@ -6,6 +6,11 @@ export interface SiteConfig {
   };
 }
 
+export interface UserConfig {
+  site: string;
+}
+
 export interface Config {
   site: SiteConfig;
+  user: UserConfig;
 }

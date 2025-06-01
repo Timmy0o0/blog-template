@@ -3,3 +3,5 @@ site:
     light: "winter"
     dark: "dracula"
     code: "github-dark"
+user:
+  site: "http://localhost:4321"

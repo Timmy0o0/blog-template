@@ -12,9 +12,15 @@ import tailwindcss from "@tailwindcss/vite";
 
 import icon from "astro-icon";
 
+import sitemap from "@astrojs/sitemap";
+
+import { USER_SITE } from "./src/config.ts";
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react(), partytown(), mdx(), icon()],
+  integrations: [react(), partytown(), mdx(), icon(), sitemap()],
+
+  site: USER_SITE,
 
   vite: {
     plugins: [tailwindcss()],
