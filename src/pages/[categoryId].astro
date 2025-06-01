@@ -2,6 +2,7 @@
 import CategoryHeader from "@components/widgets/CategoryHeader.astro";
 import PostCard from "@components/widgets/PostCard.astro";
 import SubCategoryHeader from "@components/widgets/SubCategoryHeader.astro";
+import type { Metadata } from "@interface/data";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import {
   getAllCategories,
@@ -30,13 +31,20 @@ const totalPostCount = postsGroupedBySubCategory.reduce(
   (total, group) => total + group.posts.length,
   0,
 );
+
+const metadata: Metadata = {
+  title: category.data.title,
+  description: category.data.description,
+  image: category.data.cover?.src,
+  type: "website",
+};
 ---
 
-<BaseLayout>
+<BaseLayout metadata={metadata}>
   <CategoryHeader
     categoryId={categoryId}
-    categoryName={category?.data.name}
-    cover={category?.data.cover}
+    categoryName={category.data.title}
+    cover={category.data.cover}
     postCount={totalPostCount}
   />
 

@@ -1,7 +1,8 @@
 - id: sub
   order: 1
   cover: "src/assets/test/cover.png"
-  name: "Sub name"
+  title: "Sub name"
+  description: "Sub description"
   subCategories:
     - sub1
     - sub2

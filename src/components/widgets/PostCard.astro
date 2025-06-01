@@ -62,7 +62,7 @@ const formatDate = (date: Date) => {
           category && (
             <div class="flex flex-wrap gap-1">
               <div class="badge badge-primary badge-sm">
-                {category.data.name}
+                {category.data.title}
               </div>
             </div>
           )
@@ -74,7 +74,7 @@ const formatDate = (date: Date) => {
             <div class="flex flex-wrap gap-1">
               {tags.map((tag) => (
                 <div class="badge badge-secondary badge-xs">
-                  #{tag.data.name}
+                  #{tag.data.title}
                 </div>
               ))}
             </div>

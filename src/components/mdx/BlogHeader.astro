@@ -25,7 +25,7 @@ const generateBreadcrumbs = () => {
   const breadcrumbs: { label: string; href: string; isLast: boolean }[] = [];
 
   breadcrumbs.push({
-    label: category.data.name,
+    label: category.data.title,
     href: `/${category.data.id}`,
     isLast: false,
   });
@@ -132,7 +132,7 @@ const breadcrumbs = generateBreadcrumbs();
             </span>
             <div class="flex flex-wrap gap-2">
               <div class="badge badge-primary badge-outline font-medium">
-                {category.data.name}
+                {category.data.title}
               </div>
             </div>
           </div>
@@ -146,7 +146,7 @@ const breadcrumbs = generateBreadcrumbs();
             <div class="flex flex-wrap gap-2">
               {tags.map((tag) => (
                 <div class="badge badge-secondary badge-sm">
-                  #{tag.data.name}
+                  #{tag.data.title}
                 </div>
               ))}
             </div>

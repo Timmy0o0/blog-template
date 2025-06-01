@@ -1,4 +1,5 @@
 ---
+import type { Metadata } from "@interface/data";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { Icon } from "astro-icon/components";
 
@@ -9,9 +10,15 @@ const socialLinks = [
   { name: "RSS", href: "/rss.xml", icon: "lucide:rss" },
   { name: "Email", href: "mailto:", icon: "lucide:mail" },
 ];
+
+const metadata: Metadata = {
+  title: "About",
+  description: "About me",
+  type: "website",
+};
 ---
 
-<BaseLayout>
+<BaseLayout metadata={metadata}>
   <div class="mx-auto max-w-4xl px-6 py-12 sm:px-8 lg:px-10">
     <section class="mb-12">
       <h1 class="mb-6 text-4xl font-bold">About Me</h1>

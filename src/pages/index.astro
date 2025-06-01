@@ -1,10 +1,17 @@
 ---
 import Hero from "@components/Hero.astro";
 import RecentPosts from "@components/RecentPosts.astro";
+import type { Metadata } from "@interface/data";
 import BaseLayout from "@layouts/BaseLayout.astro";
+
+const metadata: Metadata = {
+  title: "Home",
+  description: "Home",
+  type: "website",
+};
 ---
 
-<BaseLayout>
+<BaseLayout metadata={metadata}>
   <Hero />
   <RecentPosts />
 </BaseLayout>

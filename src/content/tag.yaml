@@ -1,6 +1,6 @@
 - id: tag1
   order: 1
-  name: "Tag name 1"
+  title: "Tag name 1"
 - id: tag2
   order: 2
-  name: "Tag name 2"
+  title: "Tag name 2"

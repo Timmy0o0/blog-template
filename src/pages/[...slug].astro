@@ -1,4 +1,5 @@
 ---
+import type { Metadata } from "@interface/data";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import BlogPostLayout from "@layouts/BlogPostLayout.astro";
 import { sortPostsByOrder } from "@utils/blog-utils";
@@ -29,9 +30,16 @@ export async function getStaticPaths() {
 
 const { post, prevPost, nextPost } = Astro.props;
 const { Content, headings } = await render(post);
+
+const metadata: Metadata = {
+  title: post.data.title,
+  description: post.data.description,
+  image: post.data.cover?.src,
+  type: "article",
+};
 ---
 
-<BaseLayout>
+<BaseLayout metadata={metadata}>
   <BlogPostLayout
     post={post}
     headings={headings}

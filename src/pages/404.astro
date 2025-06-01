@@ -1,8 +1,15 @@
 ---
 import BaseLayout from "@layouts/BaseLayout.astro";
+import type { Metadata } from "@interface/data";
+
+const metadata: Metadata = {
+  title: "404",
+  description: "Page not found",
+  type: "website",
+};
 ---
 
-<BaseLayout>
+<BaseLayout metadata={metadata}>
   <div class="flex w-full flex-col items-center justify-center px-4 py-20">
     <div class="mx-auto max-w-2xl text-center">
       <!-- 404 Number -->

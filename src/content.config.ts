@@ -25,7 +25,8 @@ const category = defineCollection({
       id: z.string(),
       order: z.number(),
       cover: image(),
-      name: z.string(),
+      title: z.string(),
+      description: z.string(),
       subCategories: z.array(reference("subCategory")),
     }),
 });
@@ -35,7 +36,7 @@ const subCategory = defineCollection({
   schema: z.object({
     id: z.string(),
     order: z.number(),
-    name: z.string(),
+    title: z.string(),
   }),
 });
 
@@ -44,7 +45,7 @@ const tag = defineCollection({
   schema: z.object({
     id: z.string(),
     order: z.number(),
-    name: z.string(),
+    title: z.string(),
   }),
 });
 

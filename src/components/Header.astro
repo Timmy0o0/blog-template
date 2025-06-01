@@ -9,7 +9,7 @@ const blogSubLinks = [
   ...categories
     .sort((a, b) => a.data.order - b.data.order)
     .map((category) => ({
-      text: category.data.name,
+      text: category.data.title,
       href: `/${category.data.id}`,
     })),
 ];
