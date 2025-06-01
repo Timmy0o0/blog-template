@@ -42,7 +42,7 @@ const totalPostCount = postsGroupedBySubCategory.reduce(
 );
 
 const metadata: Metadata = {
-  title: category.data.title,
+  title: `${category.data.title} - ${SITE_TITLE}`,
   description: category.data.description,
   image: category.data.image?.src,
   type: "website",

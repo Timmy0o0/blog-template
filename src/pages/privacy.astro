@@ -1,12 +1,12 @@
 ---
+import { SITE_TITLE, USER_EMAIL } from "@config";
 import type { Metadata } from "@interface/data";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 const lastUpdated = "May 25, 2025";
-const email = "timmy@astro.build";
 
 const metadata: Metadata = {
-  title: "Privacy Policy",
+  title: `Privacy Policy - ${SITE_TITLE}`,
   description: "Privacy Policy",
   type: "website",
 };
@@ -162,7 +162,7 @@ const metadata: Metadata = {
             our privacy practices, please contact us at:
           </p>
           <div class="mt-2">
-            <p>Email: {email}</p>
+            <p>Email: {USER_EMAIL}</p>
           </div>
         </section>
       </div>

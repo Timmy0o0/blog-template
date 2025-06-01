@@ -12,3 +12,5 @@ export const SITE_THEME = config.site.theme;
 export const CODE_THEME = config.site.theme.code;
 
 export const USER_SITE = config.user.site;
+export const USER_EMAIL = config.user.email;
+export const USER_SOCIAL = config.user.social;

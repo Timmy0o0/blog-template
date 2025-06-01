@@ -1,5 +1,5 @@
 ---
-import { SITE_TITLE } from "@config";
+import { SITE_TITLE, USER_SOCIAL } from "@config";
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 
@@ -34,13 +34,6 @@ const footerColumns: FooterColumn[] = [
     links: [{ text: "About", href: "/about" }],
   },
 ];
-
-const socialLinks = [
-  { name: "twitter", href: "https://twitter.com/", icon: "lucide:twitter" },
-  { name: "github", href: "https://github.com/", icon: "lucide:github" },
-  { name: "rss", href: "/rss.xml", icon: "lucide:rss" },
-  { name: "mail", href: "mailto:", icon: "lucide:mail" },
-];
 ---
 
 <footer
@@ -65,15 +58,15 @@ const socialLinks = [
 
         <div class="mt-6 flex justify-center space-x-5 lg:justify-start">
           {
-            socialLinks.map((link) => (
+            USER_SOCIAL.map((social) => (
               <a
-                href={link.href}
+                href={social.href}
                 class="bg-base-300 hover:bg-primary flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-200 hover:text-white dark:bg-gray-800"
-                aria-label={`Follow on ${link.name}`}
+                aria-label={`Follow on ${social.name}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Icon name={link.icon} class="h-5 w-5" />
+                <Icon name={social.icon} class="h-5 w-5" />
               </a>
             ))
           }

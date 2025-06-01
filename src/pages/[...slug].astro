@@ -49,7 +49,7 @@ const tags = await getTagTitles(post.data.tags);
 const category = await getEntry(post.data.category);
 
 const metadata: Metadata = {
-  title: post.data.title,
+  title: `${post.data.title} - ${SITE_TITLE}`,
   description: post.data.description,
   image: post.data.image?.src,
   type: "article",

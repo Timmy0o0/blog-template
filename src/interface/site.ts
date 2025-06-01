@@ -10,9 +10,17 @@ export interface SiteConfig {
 
 export interface UserConfig {
   site: string;
+  email: string;
+  social: SocialConfig[];
 }
 
 export interface Config {
   site: SiteConfig;
   user: UserConfig;
+}
+
+export interface SocialConfig {
+  name: string;
+  href: string;
+  icon: string;
 }

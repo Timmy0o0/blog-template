@@ -1,9 +1,10 @@
 ---
-import BaseLayout from "@layouts/BaseLayout.astro";
+import { SITE_TITLE } from "@config";
 import type { Metadata } from "@interface/data";
+import BaseLayout from "@layouts/BaseLayout.astro";
 
 const metadata: Metadata = {
-  title: "404",
+  title: `404 - ${SITE_TITLE}`,
   description: "Page not found",
   type: "website",
 };

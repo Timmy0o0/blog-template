@@ -1,18 +1,11 @@
 ---
+import { SITE_TITLE, USER_SOCIAL } from "@config";
 import type { Metadata } from "@interface/data";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { Icon } from "astro-icon/components";
 
-// Social links from Footer
-const socialLinks = [
-  { name: "Twitter", href: "https://twitter.com/", icon: "lucide:twitter" },
-  { name: "GitHub", href: "https://github.com/", icon: "lucide:github" },
-  { name: "RSS", href: "/rss.xml", icon: "lucide:rss" },
-  { name: "Email", href: "mailto:", icon: "lucide:mail" },
-];
-
 const metadata: Metadata = {
-  title: "About",
+  title: `About - ${SITE_TITLE}`,
   description: "About me",
   type: "website",
 };
@@ -35,15 +28,15 @@ const metadata: Metadata = {
 
       <div class="flex flex-wrap gap-4">
         {
-          socialLinks.map((link) => (
+          USER_SOCIAL.map((social) => (
             <a
-              href={link.href}
+              href={social.href}
               class="bg-base-200 hover:bg-primary flex items-center gap-2 rounded-lg px-4 py-3 transition-colors duration-200 hover:text-white"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Icon name={link.icon} class="h-5 w-5" />
-              <span>{link.name}</span>
+              <Icon name={social.icon} class="h-5 w-5" />
+              <span>{social.name}</span>
             </a>
           ))
         }
