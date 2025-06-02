@@ -21,6 +21,7 @@ const { prevPost, nextPost } = Astro.props;
           <a
             href={`/${prevPost.id}`}
             class="group flex flex-1 flex-col rounded-lg p-4 transition-all duration-200 hover:bg-base-200/50 hover:text-primary sm:p-3 md:p-4"
+            title={prevPost.data.title}
           >
             <span class="text-primary mb-2 text-sm font-medium">
               ← Previous
@@ -48,6 +49,7 @@ const { prevPost, nextPost } = Astro.props;
           <a
             href={`/${nextPost.id}`}
             class="group flex flex-1 flex-col rounded-lg p-4 text-left transition-all duration-200 hover:bg-base-200/50 hover:text-primary sm:p-3 sm:text-right md:p-4"
+            title={nextPost.data.title}
           >
             <span class="text-primary mb-2 text-sm font-medium">
               Next →

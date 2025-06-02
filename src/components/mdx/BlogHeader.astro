@@ -45,6 +45,7 @@ const breadcrumbs: BreadcrumbItem[] = generatePostBreadcrumbs(
               <a
                 href="/"
                 class="hover:text-primary flex items-center transition-colors"
+                title="Home"
               >
                 <Icon name="lucide:home" class="mr-1 h-4 w-4" />
                 Home
@@ -60,6 +61,7 @@ const breadcrumbs: BreadcrumbItem[] = generatePostBreadcrumbs(
                   <a
                     href={item.href}
                     class="hover:text-primary transition-colors"
+                    title={item.label}
                   >
                     {item.label}
                   </a>
@@ -84,9 +86,9 @@ const breadcrumbs: BreadcrumbItem[] = generatePostBreadcrumbs(
         />
         <div class="absolute inset-0 rounded-xl bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
         <div class="absolute bottom-0 left-0 p-6">
-          <div class="text-2xl font-bold text-white drop-shadow-lg md:text-3xl lg:text-4xl">
+          <h1 class="text-2xl font-bold text-white drop-shadow-lg md:text-3xl lg:text-4xl">
             {post.data.title}
-          </div>
+          </h1>
         </div>
       </figure>
     )
