@@ -3,4 +3,5 @@ export interface Metadata {
   description: string;
   image?: string;
   type: "website" | "article";
+  robots: "index, follow" | "noindex, nofollow" | "noindex, follow";
 }
