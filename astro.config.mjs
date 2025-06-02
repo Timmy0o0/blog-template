@@ -16,6 +16,8 @@ import sitemap from "@astrojs/sitemap";
 
 import { USER_SITE } from "./src/config.ts";
 
+import vercel from "@astrojs/vercel";
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [react(), partytown(), mdx(), icon(), sitemap()],
@@ -32,4 +34,6 @@ export default defineConfig({
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
   },
+
+  adapter: vercel(),
 });
