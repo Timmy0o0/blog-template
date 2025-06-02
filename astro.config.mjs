@@ -16,8 +16,6 @@ import sitemap from "@astrojs/sitemap";
 
 import { USER_SITE } from "./src/config.ts";
 
-import cloudflare from "@astrojs/cloudflare";
-
 // https://astro.build/config
 export default defineConfig({
   integrations: [react(), partytown(), mdx(), icon(), sitemap()],
@@ -34,6 +32,4 @@ export default defineConfig({
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex],
   },
-
-  adapter: cloudflare(),
 });
