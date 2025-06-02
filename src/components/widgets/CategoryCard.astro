@@ -21,7 +21,7 @@ const subCategories =
 <div
   class="group card bg-base-100 rounded-lg shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
 >
-  <a href={`/${category.id}`} class="block">
+  <a href={`/${category.id}`} class="block" title={category.data.title}>
     {
       category.data.image && (
         <figure class="relative overflow-hidden rounded-t-lg">

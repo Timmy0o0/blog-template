@@ -46,13 +46,23 @@ const footerColumns: FooterColumn[] = [
         <div
           class="flex items-center justify-center space-x-2 lg:justify-start"
         >
-          <a href="/" class="text-lg font-bold">{SITE_TAB}</a>
+          <a href="/" class="text-lg font-bold" title={SITE_TAB}>
+            {SITE_TAB}
+          </a>
         </div>
         <div class="text-base-content/70 mt-3 text-center text-sm lg:text-left">
           <p>© {currentYear} {SITE_TAB}. All rights reserved.</p>
           <div class="mt-3">
-            <a href="/terms" class="hover:text-primary mr-4">Terms</a>
-            <a href="/privacy" class="hover:text-primary">Privacy Policy</a>
+            <a href="/terms" class="hover:text-primary mr-4" title="Terms">
+              Terms
+            </a>
+            <a
+              href="/privacy"
+              class="hover:text-primary"
+              title="Privacy Policy"
+            >
+              Privacy Policy
+            </a>
           </div>
         </div>
 
@@ -65,6 +75,7 @@ const footerColumns: FooterColumn[] = [
                 aria-label={`Follow on ${social.name}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                title={`Follow on ${social.name}`}
               >
                 <Icon name={social.icon} class="h-5 w-5" />
               </a>
@@ -87,6 +98,7 @@ const footerColumns: FooterColumn[] = [
                     <a
                       href={link.href}
                       class="text-base-content/70 hover:text-primary transition-colors duration-200"
+                      title={link.text}
                     >
                       {link.text}
                     </a>

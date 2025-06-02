@@ -36,6 +36,7 @@ const navLinks = [
       <a
         href="/"
         class="flex items-center pl-2.5 text-xl font-bold transition-colors"
+        title={SITE_TAB}
       >
         {SITE_TAB}
       </a>
@@ -84,7 +85,11 @@ const navLinks = [
                   <ul class="pl-4">
                     {link.subLinks.map((subLink) => (
                       <li>
-                        <a href={subLink.href} class="py-2 text-base">
+                        <a
+                          href={subLink.href}
+                          class="py-2 text-base"
+                          title={subLink.text}
+                        >
                           {subLink.text}
                         </a>
                       </li>
@@ -92,7 +97,11 @@ const navLinks = [
                   </ul>
                 </details>
               ) : (
-                <a href={link.href} class="py-3 text-lg font-medium">
+                <a
+                  href={link.href}
+                  class="py-3 text-lg font-medium"
+                  title={link.text}
+                >
                   {link.text}
                 </a>
               )}
