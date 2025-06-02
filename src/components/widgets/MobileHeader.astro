@@ -2,7 +2,7 @@
 import { Icon } from "astro-icon/components";
 import ThemeToggleButton from "@components/widgets/ThemeToggleButton.astro";
 import { getCollection } from "astro:content";
-import { SITE_TITLE } from "@config";
+import { SITE_TAB } from "@config";
 
 const categories = await getCollection("category");
 
@@ -37,7 +37,7 @@ const navLinks = [
         href="/"
         class="flex items-center pl-2.5 text-xl font-bold transition-colors"
       >
-        {SITE_TITLE}
+        {SITE_TAB}
       </a>
     </div>
     <div class="navbar-end">

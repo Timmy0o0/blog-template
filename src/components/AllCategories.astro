@@ -1,0 +1,37 @@
+---
+import CategoryCard from "@components/widgets/CategoryCard.astro";
+import { getCollection } from "astro:content";
+
+interface Props {
+  showHeader?: boolean;
+}
+
+const { showHeader = true } = Astro.props;
+
+// Get all categories and sort by order
+const allCategories = await getCollection("category");
+const sortedCategories = allCategories.sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+// Display all categories without limit
+const displayCategories = sortedCategories;
+---
+
+<section class="mt-8">
+  <div class="mb-4 text-center">
+    <div class="mb-4 flex items-center justify-center gap-3">
+      <h2 class="text-base-content text-3xl font-bold md:text-4xl">
+        All Categories
+      </h2>
+    </div>
+    <p class="text-base-content/70 mx-auto max-w-md text-sm">
+      Explore our different content categories
+    </p>
+  </div>
+
+  <!-- Categories Grid -->
+  <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    {displayCategories.map((category) => <CategoryCard category={category} />)}
+  </div>
+</section>

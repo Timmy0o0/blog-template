@@ -1,4 +1,5 @@
 ---
+import AllCategories from "@components/AllCategories.astro";
 import Hero from "@components/Hero.astro";
 import RecentPosts from "@components/RecentPosts.astro";
 import {
@@ -34,5 +35,6 @@ const jsonLdSchema = createJsonLdSchema([websiteSchema, breadcrumbJsonLd]);
 
 <BaseLayout metadata={metadata} jsonLdSchema={jsonLdSchema}>
   <Hero />
+  <AllCategories />
   <RecentPosts />
 </BaseLayout>
