@@ -51,7 +51,7 @@ const category = await getEntry(post.data.category);
 const metadata: Metadata = {
   title: `${post.data.title} - ${SITE_TAB}`,
   description: post.data.description,
-  image: post.data.image?.src,
+  image: `${USER_SITE}${post.data.image?.src}`,
   type: "article",
 };
 

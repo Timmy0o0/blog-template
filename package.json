@@ -10,8 +10,8 @@
     "astro": "astro",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
-    "cloudflare:dev": "npx astro build && npx wrangler dev",
-    "cloudflare:deploy": "npx astro build && npx wrangler deploy"
+    "cloudflare:dev": "astro build && wrangler dev",
+    "cloudflare:deploy": "astro build && wrangler deploy"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -32,7 +32,6 @@
     "react-dom": "^19.1.0",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
-    "sharp": "^0.34.2",
     "tailwindcss": "^4.1.7",
     "typescript": "^5.8.3"
   },

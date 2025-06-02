@@ -1,5 +1,6 @@
 ---
 import JsonLd from "@components/widgets/JsonLd.astro";
+import { USER_TWITTER } from "@config";
 import type { Metadata } from "@interface/data";
 
 interface Props {
@@ -37,6 +38,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={metadata.title} />
 <meta name="twitter:description" content={metadata.description} />
+<meta name="twitter:site" content={USER_TWITTER} />
 {metadata.image && <meta name="twitter:image" content={metadata.image} />}
 
 <!-- JSON-LD -->

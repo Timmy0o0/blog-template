@@ -12,6 +12,7 @@ export interface SiteConfig {
 export interface UserConfig {
   site: string;
   email: string;
+  twitter: string;
   social: SocialConfig[];
 }
 

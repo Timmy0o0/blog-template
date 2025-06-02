@@ -9,6 +9,7 @@ site:
 user:
   site: "http://localhost:4321"
   email: "test@test.com"
+  twitter: "@Timmy_Y0"
   social:
     - name: "twitter"
       href: "https://twitter.com/"
