@@ -1,6 +1,7 @@
 export interface SiteConfig {
-  title: string;
-  description: string;
+  tab: string;
+  heroTitle: string;
+  heroDescription: string;
   theme: {
     light: string;
     dark: string;

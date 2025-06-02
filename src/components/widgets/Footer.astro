@@ -1,5 +1,5 @@
 ---
-import { SITE_TITLE, USER_SOCIAL } from "@config";
+import { SITE_TAB, USER_SOCIAL } from "@config";
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 
@@ -46,10 +46,10 @@ const footerColumns: FooterColumn[] = [
         <div
           class="flex items-center justify-center space-x-2 lg:justify-start"
         >
-          <a href="/" class="text-lg font-bold">{SITE_TITLE}</a>
+          <a href="/" class="text-lg font-bold">{SITE_TAB}</a>
         </div>
         <div class="text-base-content/70 mt-3 text-center text-sm lg:text-left">
-          <p>© {currentYear} {SITE_TITLE}. All rights reserved.</p>
+          <p>© {currentYear} {SITE_TAB}. All rights reserved.</p>
           <div class="mt-3">
             <a href="/terms" class="hover:text-primary mr-4">Terms</a>
             <a href="/privacy" class="hover:text-primary">Privacy Policy</a>

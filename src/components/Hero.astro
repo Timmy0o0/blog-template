@@ -1,6 +1,6 @@
 ---
 import homeImage from "@assets/home.svg";
-import { SITE_DESCRIPTION, SITE_TITLE } from "@config";
+import { SITE_HERO_DESCRIPTION, SITE_HERO_TITLE } from "@config";
 import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 ---
@@ -12,13 +12,13 @@ import { Image } from "astro:assets";
       <div class="flex-1 space-y-6 text-center md:text-left">
         <h1 class="text-4xl leading-tight font-bold md:text-5xl lg:text-6xl">
           <span class="text-base-content">Welcome to My Blog</span>
-          <span class="text-primary block">{SITE_TITLE}</span>
+          <span class="text-primary block">{SITE_HERO_TITLE}</span>
         </h1>
 
         <p
           class="text-base-content/80 mx-auto max-w-2xl text-lg md:mx-0 md:text-xl"
         >
-          {SITE_DESCRIPTION}
+          {SITE_HERO_DESCRIPTION}
         </p>
 
         <div class="flex flex-wrap justify-center gap-4 md:justify-start">
@@ -35,7 +35,7 @@ import { Image } from "astro:assets";
         <div class="relative h-64 w-64 md:h-80 md:w-80 lg:h-96 lg:w-96">
           <Image
             src={homeImage}
-            alt={`${SITE_TITLE}`}
+            alt={`${SITE_HERO_TITLE}`}
             class="relative z-10 h-full w-full object-contain"
           />
         </div>

@@ -1,15 +1,20 @@
 ---
 import Hero from "@components/Hero.astro";
 import RecentPosts from "@components/RecentPosts.astro";
-import { SITE_DESCRIPTION, SITE_TITLE, USER_SITE } from "@config";
+import {
+  SITE_HERO_DESCRIPTION,
+  SITE_HERO_TITLE,
+  SITE_TAB,
+  USER_SITE,
+} from "@config";
 import type { Metadata } from "@interface/data";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { generateBreadcrumbJsonLd } from "@utils/breadcrumb-utils";
 import { createJsonLdSchema, createWebSiteSchema } from "@utils/json-ld-utils";
 
 const metadata: Metadata = {
-  title: SITE_TITLE,
-  description: SITE_DESCRIPTION,
+  title: `${SITE_HERO_TITLE} - ${SITE_TAB}`,
+  description: SITE_HERO_DESCRIPTION,
   type: "website",
 };
 
@@ -18,8 +23,8 @@ const breadcrumbJsonLd = generateBreadcrumbJsonLd([]);
 
 // Create website schema
 const websiteSchema = createWebSiteSchema(
-  SITE_TITLE,
-  SITE_DESCRIPTION,
+  `${SITE_HERO_TITLE} - ${SITE_TAB}`,
+  SITE_HERO_DESCRIPTION,
   USER_SITE,
 );
 

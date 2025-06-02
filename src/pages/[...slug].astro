@@ -1,5 +1,5 @@
 ---
-import { SITE_TITLE, USER_SITE } from "@config";
+import { SITE_TAB, USER_SITE } from "@config";
 import type { Metadata } from "@interface/data";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import BlogPostLayout from "@layouts/BlogPostLayout.astro";
@@ -49,7 +49,7 @@ const tags = await getTagTitles(post.data.tags);
 const category = await getEntry(post.data.category);
 
 const metadata: Metadata = {
-  title: `${post.data.title} - ${SITE_TITLE}`,
+  title: `${post.data.title} - ${SITE_TAB}`,
   description: post.data.description,
   image: post.data.image?.src,
   type: "article",
@@ -73,7 +73,7 @@ const blogPostingSchema = createBlogPostingSchema(
   `${USER_SITE}${post.data.image.src}`,
   post.data.pubDate,
   post.data.updatedDate,
-  SITE_TITLE,
+  `${post.data.title} - ${SITE_TAB}`,
   USER_SITE,
 );
 

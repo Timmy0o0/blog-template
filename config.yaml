@@ -1,6 +1,7 @@
 site:
-  title: "My Blog"
-  description: "My Blog description"
+  tab: "My Blog"
+  heroTitle: "Vivid & Easy Math Courses"
+  heroDescription: "Vivid & Easy Math Courses description"
   theme:
     light: "winter"
     dark: "dracula"
