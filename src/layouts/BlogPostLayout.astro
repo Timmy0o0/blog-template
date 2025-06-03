@@ -39,7 +39,11 @@ const relatedPosts = await getEntries(post?.data.relatedPosts || []);
         {
           headings.length > 0 && (
             <div class="collapse-arrow bg-base-200 border-base-300 collapse mt-4 border">
-              <input type="checkbox" class="peer" />
+              <input
+                type="checkbox"
+                class="peer"
+                aria-label="Toggle Table of Contents"
+              />
               <div class="collapse-title flex items-center gap-2 font-medium">
                 Table of Contents
               </div>
