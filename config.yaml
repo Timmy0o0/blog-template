@@ -6,11 +6,15 @@ site:
     light: "winter"
     dark: "dracula"
     code: "github-dark"
+  aboutme: "I'm a YouTuber with a deep passion for mathematics and science. My goal is to create engaging and intuitive educational content that simplifies complex scientific concepts, making them accessible and easier to understand for everyone."
 user:
   site: "http://localhost:4321"
   email: "test@test.com"
   twitter: "@Timmy_Y0"
   social:
+    - name: "youtube"
+      href: "https://www.youtube.com/"
+      icon: "lucide:youtube"
     - name: "twitter"
       href: "https://twitter.com/"
       icon: "lucide:twitter"

@@ -2,6 +2,7 @@ export interface SiteConfig {
   tab: string;
   heroTitle: string;
   heroDescription: string;
+  aboutme: string;
   theme: {
     light: string;
     dark: string;

@@ -11,6 +11,7 @@ export const SITE_HERO_TITLE = config.site.heroTitle;
 export const SITE_HERO_DESCRIPTION = config.site.heroDescription;
 export const SITE_THEME = config.site.theme;
 export const CODE_THEME = config.site.theme.code;
+export const SITE_ABOUTME = config.site.aboutme;
 
 export const USER_SITE = config.user.site;
 export const USER_EMAIL = config.user.email;
