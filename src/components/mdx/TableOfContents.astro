@@ -87,18 +87,6 @@ const filteredHeadings = headings.filter((heading) => heading.depth <= 3);
   )
 }
 
-<style>
-  /* Add scroll margin to all elements with IDs to account for fixed header */
-  :global([id]) {
-    scroll-margin-top: 6rem; /* 96px for header offset */
-  }
-
-  /* Enable smooth scrolling for all anchor links */
-  :global(html) {
-    scroll-behavior: smooth;
-  }
-</style>
-
 <script>
   // Add active state highlighting (scroll behavior handled by CSS)
   document.addEventListener("astro:page-load", () => {

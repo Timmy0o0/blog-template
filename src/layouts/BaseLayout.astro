@@ -62,6 +62,16 @@ const { metadata, jsonLdSchema } = Astro.props;
   html {
     overflow-y: scroll;
   }
+
+  /* Add scroll margin to all elements with IDs to account for fixed header */
+  :global([id]) {
+    scroll-margin-top: 6rem; /* 96px for header offset */
+  }
+
+  /* Enable smooth scrolling for all anchor links */
+  :global(html) {
+    scroll-behavior: smooth;
+  }
 </style>
 
 <!-- Theme Toggle Script -->
