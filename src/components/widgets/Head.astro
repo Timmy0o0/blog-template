@@ -10,7 +10,12 @@ interface Props {
 
 const { metadata, jsonLdSchema } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+// Remove trailing slash from URL
+let pathname = Astro.url.pathname;
+if (pathname !== "/" && pathname.endsWith("/")) {
+  pathname = pathname.slice(0, -1);
+}
+const canonicalURL = new URL(pathname, Astro.site);
 
 // TODO: default image
 ---
